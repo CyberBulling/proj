@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница не найдена - ИСУР</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1D5DEB;
+            --primary-dark: #0F4ACB;
+            --primary-light: #3A7BFF;
+            --secondary: #FF6B35;
+            --accent: #00C896;
+            --dark: #1E293B;
+            --light: #F8FAFC;
+            --gy: #b2cef5;
+            --gray: #64748B;
+            --gray-light: #E2E8F0;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 5px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s ease;
+            --glass-bg: #8DADF4;
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --border-radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comparison-counter {
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка */
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            color: rgb(255, 255, 255);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-size: 0;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+            
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 500;
+            color: rgb(13, 2, 56);
+        }
+        
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: rgb(255, 255, 255);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        
+        /* Основной контент страницы ошибки */
+        .error-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+        }
+        
+        .error-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--gray-light);
+        }
+        
+        .error-code {
+            font-size: 120px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1;
+            text-shadow: 3px 3px 0 rgba(29, 93, 235, 0.1);
+        }
+        
+        .error-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        .error-description {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .error-robot {
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .robot-container {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .robot {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(29, 93, 235, 0.2);
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .robot-mouth {
+            width: 40px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .robot-antenna {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 30px;
+            background: var(--primary-light);
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .robot-antenna::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--danger);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .error-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--primary);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(29, 93, 235, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(29, 93, 235, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(29, 93, 235, 0.1);
+        }
+        
+        .error-search {
+            margin-top: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        #errorSearchInput {
+            flex: 1;
+            padding: 14px 20px;
+            border: 1px solid var(--gray-light);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: var(--transition);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        #errorSearchInput:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(29, 93, 235, 0.1);
+        }
+        
+        .search-btn {
+            padding: 14px 26px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(29, 93, 235, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        
+        .search-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(29, 93, 235, 0.3);
+        }
+                      /* Герой-секция с градиентом и анимацией */
+        .hero {
+            background:radial-gradient(circle at 80% 40%, rgba(69, 18, 255, 0.2) 70%, transparent 90%),
+            radial-gradient(circle at 50% 90%, rgba(5, 217, 232, 0.3) 50%, transparent 80%),
+            radial-gradient(circle at 80% 40%, rgba(69, 18, 255, 0.2) 70%, transparent 90%),
+             radial-gradient(circle at 20% 40%, rgba(255, 42, 42, 0.4) 30%, transparent 80%),
+                    radial-gradient(circle at 50% 90%, rgba(5, 217, 232, 0.3) 30%, transparent 80%),
+                    radial-gradient(circle at 40% 40%, rgba(55, 5, 236, 0.2) 70%, transparent 90%);
+            color: rgb(255, 255, 255);
+            padding: 100px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 30px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+.hero::after {
+ content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(64, 11, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%);
+    animation: float 6s ease-in-out infinite;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin: 0 auto 40px;
+            font-weight: 400;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: white;
+            color: var(--primary);
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #f0f6ff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #00b286;
+            color: white;
+        }
+        /* Ценности компании */
+        .values-section {
+            background: linear-gradient(to right, #f0f6ff, #e3f2fd);
+            padding: 60px 0;
+            margin: 60px 0;
+            border-radius: 15px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .value-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .value-icon {
+            font-size: 40px;
+            color: #1D5DEB;
+            margin-bottom: 20px;
+        }
+        
+        .value-title {
+            font-size: 20px;
+            color: #1D5DEB;
+            margin-bottom: 15px;
+        }
+        
+        /* Анимации */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+                          .hero {
+                padding: 60px ;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+        
+        @keyframes blink {
+            0%, 95%, 100% { transform: scaleY(1); }
+            97% { transform: scaleY(0.1); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.7; transform: translateX(-50%) scale(1.1); }
+        }
+        
+        /* Футер */
+        footer {
+            background-color: #2C3E50;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-light);
+        }
+        
+        .footer-section p {
+            margin-bottom: 12px;
+            font-size: 15px;
+            opacity: 0.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                gap: 0;
+                border-top: 1px solid var(--gray-light);
+            }
+            
+            nav.active {
+                display: flex;
+            }
+            
+            nav a {
+                padding: 12px 0;
+                border-bottom: 1px solid var(--gray-light);
+                color: var(--dark);
+            }
+            
+            nav a:last-child {
+                border-bottom: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .error-code {
+                font-size: 80px;
+            }
+            
+            .error-title {
+                font-size: 24px;
+            }
+            
+            .error-description {
+                font-size: 16px;
+            }
+            
+            .error-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-btn {
+                width: 100%;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-section h3:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo-text {
+                font-size: 16px;
+            }
+            
+            .error-container {
+                padding: 30px 20px;
+            }
+            
+            .error-code {
+                font-size: 60px;
+            }
+            
+            .robot {
+                width: 150px;
+                height: 150px;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+   <header>
+        <div class="container header-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="images/logooo.svg" style="height: 50px; width: auto;" alt="ИСУР Логотип">
+                </div>
+                <div class="logo-text"></div>
+            </div>
+            <nav id="mainNav">
+                <a href="index.html" class="active">Главная</a>
+                <a href="about.html">О нас</a>
+                <a href="analytics.html">Аналитика</a>
+                <a href="contact.html">Контакты</a>
+                <a href="diffs.html">Сравнение объектов<span class="comparison-counter" id="comparison-counter" style="display: none;">0</span></a>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </header>
+
+    <main class="error-main">
+        <div class="container">
+            <div class="error-container">
+                                       <section class="hero">
+        <div class="container hero-content">
+                <div class="error-code">404</div>
+                <h1 class="error-title">Страница не найдена</h1>
+                <p class="error-description">
+                    К сожалению, запрашиваемая вами страница не существует. Возможно, она была перемещена или удалена. 
+                    Попробуйте вернуться на главную страницу или воспользуйтесь поиском.
+                </p>
+                
+                <div class="error-robot">
+                    <div class="robot-container">
+                        <div class="robot">
+                            <img src="images/mimi.svg" class="img-fluid" alt="bootstrap image size" width="212" height="227">
+                            <div class="robot-antenna"></div>
+            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="error-actions">
+                    <a href="index.html" class="btn"><i class="fas fa-home"></i> На главную</a>
+                    <a href="contact.html" class="btn btn-outline"><i class="fas fa-envelope"></i> Связаться с нами</a>
+                    <button onclick="history.back()" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Вернуться назад</button>
+                </div>
+                
+                <div class="error-search">
+                    <p style="margin-bottom: 15px; color: var(--gray);">Или найдите нужную информацию:</p>
+                    <div class="search-container">
+                        <input type="text" id="errorSearchInput" placeholder="Поиск по сайту...">
+                        <button class="search-btn" onclick="performSearch()"><i class="fas fa-search"></i> Найти</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>Телефон: +7 (xxx) xxx-xx-xx</p>
+                    <p>Email: исур@company.ru</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт: 9:00 - 18:00</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Адрес</h3>
+                    <p>г. Москва ул. Павла Корчагина, д. 22</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Социальные сети</h3>
+                    <p>Telegram | VK </p>
+                    <p>Подпишитесь на наши обновления</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ИСУР. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Элементы DOM
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        const errorSearchInput = document.getElementById('errorSearchInput');
+
+        // Мобильное меню
+        mobileMenuBtn.addEventListener('click', () => {
+            const isVisible = mainNav.classList.contains('active');
+            if (isVisible) {
+                mainNav.classList.remove('active');
+            } else {
+                mainNav.classList.add('active');
+            }
+        });
+
+        // Функция поиска
+        function performSearch() {
+            const query = errorSearchInput.value.trim();
+            if (query) {
+                // В реальном проекте здесь будет перенаправление на страницу поиска
+                alert(`Поиск: ${query}\n\nВ реальном проекте здесь будет перенаправление на страницу поиска с результатами.`);
+            } else {
+                alert('Пожалуйста, введите поисковый запрос');
+            }
+        }
+
+        // Поиск при нажатии Enter
+        errorSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Адаптивное меню при изменении размера окна
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                mainNav.classList.remove('active');
+            }
+        });
+
+        // Анимация для робота при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            const robot = document.querySelector('.robot');
+            setTimeout(() => {
+                robot.style.animation = 'float 4s ease-in-out infinite';
+            }, 500);
+        });
+    </script>
+</body>
+</html>

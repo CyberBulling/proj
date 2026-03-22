@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - ИСУР</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+
+:root {
+    --primary: #1a56db;
+    --primary-dark: #1e429f;
+    --primary-light: #3f83f8;
+    --accent: #c80000;
+    --accent-light: #5434d3;
+    --dark: #111827;
+    --light: #f9fafb;
+    --gray-light: #f3f4f6;
+    --gray: #6b7280;
+    --glass-bg: rgba(26, 86, 219, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --border-radius: 16px;
+    --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08), 0 10px 20px -10px rgba(0, 0, 0, 0.04);
+    --elevated-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .comparison-counter {
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== УЛУЧШЕННАЯ ШАПКА ===== */
+        header {
+            background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(26, 86, 219, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        nav a.active {
+            color: white;
+            font-weight: 600;
+        }
+
+        nav a.active:after,
+        nav a:hover:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), white);
+            border-radius: 3px 3px 0 0;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ===== УЛУЧШЕННАЯ ГЕРОЙ-СЕКЦИЯ ===== */
+        .hero {
+            background: linear-gradient(135deg, 
+                #1a56db 0%, 
+                #3f83f8 30%, 
+                #c80000 70%, 
+                #d33434 100%);
+            color: white;
+            padding: 6rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255,255,255,0.08) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% { 
+                transform: translate(0, 0) rotate(0deg) scale(1); 
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translate(-30px, -30px) rotate(90deg) scale(1.1); 
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(30px, 30px) rotate(180deg) scale(1); 
+                opacity: 0.8;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, white, #e0f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-description {
+            font-size: 1.25rem;
+            margin: 0 auto 3rem;
+            font-weight: 400;
+            opacity: 0.9;
+            line-height: 1.7;
+            max-width: 700px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+        .breadcrumbs {
+            padding: 1.5rem 0 1rem;
+            font-size: 0.9375rem;
+            color: var(--gray);
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .breadcrumbs a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .breadcrumbs a:hover {
+            color: var(--primary-dark);
+        }
+
+        .breadcrumbs a:hover:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--primary);
+        }
+
+        .breadcrumbs span {
+            color: var(--gray);
+            margin: 0 0.5rem;
+        }
+
+        /* ===== УЛУЧШЕННЫЕ КНОПКИ ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(26, 86, 219, 0.3);
+            border: none;
+            cursor: pointer;
+            min-width: 160px;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn:hover::after {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(26, 86, 219, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: #f0f6ff;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+        }
+
+        /* ===== УЛУЧШЕННЫЕ СЕКЦИИ ===== */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        /* ===== СЕКЦИЯ О нас ===== */
+        .about-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 4rem 0;
+            gap: 3rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .about-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            position: relative;
+        }
+
+
+        .about-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--dark);
+        }
+
+        .about-highlight {
+            background: linear-gradient(135deg, rgba(26, 86, 219, 0.1), rgba(200, 0, 0, 0.1));
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+            box-shadow: var(--card-shadow);
+        }
+
+        .about-highlight p {
+            margin: 0;
+            font-style: italic;
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        /* ===== СЕКЦИЯ ЦЕННОСТЕЙ ===== */
+        .values-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+            padding: 4rem 0;
+            margin: 4rem 0;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .values-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+        }
+
+        .values-section .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .values-section .section-title::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--elevated-shadow);
+            border-color: rgba(26, 86, 219, 0.1);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 10px 25px rgba(26, 86, 219, 0.2);
+            transition: var(--transition);
+        }
+
+        .value-card:hover .value-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .value-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .value-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ===== СЕКЦИЯ КОМАНДЫ ===== */
+        .team-section {
+            margin: 4rem 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--elevated-shadow);
+            border-color: rgba(26, 86, 219, 0.1);
+        }
+
+        .member-image {
+            height: 280px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.1), transparent);
+        }
+
+        .member-info {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .member-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .member-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 1px;
+        }
+
+        .member-position {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9375rem;
+        }
+
+        .member-info p {
+            color: var(--gray);
+            line-height: 1.6;
+            font-size: 0.9375rem;
+        }
+
+        /* ===== СЕКЦИЯ ДОСТИЖЕНИЙ ===== */
+        .achievements-section {
+            background: linear-gradient(135deg, white 0%, #f8fafc 100%);
+            padding: 4rem;
+            border-radius: 30px;
+            box-shadow: var(--elevated-shadow);
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievements-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+        }
+
+        .achievements-section .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .achievements-section .section-title::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .achievement {
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 86, 219, 0.05), transparent);
+            z-index: 1;
+        }
+
+        .achievement:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--elevated-shadow);
+        }
+
+        .achievement-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .achievement-text {
+            font-size: 1.125rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== CTA СЕКЦИЯ ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            border-radius: 30px;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite alternate;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, white, #e0f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* ===== УЛУЧШЕННЫЙ ФУТЕР ===== */
+        footer {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+            color: white;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.75rem;
+            font-size: 0.9375rem;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-section p:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.25rem;
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-bottom {
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.875rem;
+            opacity: 0.7;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 100%;
+                padding: 0 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            nav {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--primary-dark);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--elevated-shadow);
+                gap: 0;
+                z-index: 999;
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+            }
+            
+            nav.active {
+                display: flex;
+                animation: slideDown 0.3s ease;
+            }
+            
+            nav a {
+                padding: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            nav a:last-child {
+                border-bottom: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .hero {
+                padding: 4rem 0;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .page-description {
+                font-size: 1.125rem;
+            }
+            
+            .about-section {
+                flex-direction: column;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            .achievements-section {
+                padding: 2rem;
+            }
+            
+            .values-grid,
+            .team-grid,
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo-text {
+                font-size: 1rem;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+                border-radius: 0 0 1rem 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .page-description {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9375rem;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .cta-section,
+            .achievements-section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .achievement-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* ===== АНИМАЦИИ ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        /* Утилитарные классы */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+        .mt-5 { margin-top: 3rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        .mb-5 { margin-bottom: 3rem; }
+        .p-1 { padding: 0.5rem; }
+        .p-2 { padding: 1rem; }
+        .p-3 { padding: 1.5rem; }
+        .p-4 { padding: 2rem; }
+        .p-5 { padding: 3rem; }
+        .d-flex { display: flex; }
+        .d-grid { display: grid; }
+        .justify-center { justify-content: center; }
+        .align-center { align-items: center; }
+        .w-100 { width: 100%; }
+        .h-100 { height: 100%; }
+    </style>
+</head>
+<body>
+    <!-- Улучшенная шапка -->
+    <header>
+        <div class="container header-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="images/images/logo1.svg" alt="ИСУР Логотип">
+                </div>
+                <div class="logo-text"></div>
+            </div>
+            <nav id="mainNav">
+                <a href="index.html">Главная</a>
+                <a href="about.html" class="active">О нас</a>
+                <a href="analytics.html">Аналитика</a>
+                <a href="contact.html">Контакты</a>
+                <a href="diffs.html">Сравнение объектов<span class="comparison-counter" id="comparison-counter" style="display: none;">0</span></a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Хлебные крошки -->
+    <div class="container">
+        <div class="breadcrumbs">
+            <a href="index.html">Главная</a> <span>></span> <a href="about.html">О нас</a>
+        </div>
+    </div>
+    
+    <!-- Улучшенная Hero секция -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="page-title">О проекте ИСУР</h1>
+            <p class="page-description">Мы создаем интеллектуальные решения для устойчивого развития городской инфраструктуры и улучшения качества жизни</p>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Секция о компании -->
+        <section class="about-section fade-in">
+            <div class="about-content">
+                <h2 class="section-title">Наша история</h2>
+                <p>Мы разрабатываем модель интеллектуальной системы управления устойчивым развитием города Москвы в институциональном контексте с элементами мониторинга и прогнозирования на основе методов машинного обучения. Наша система помогает принимать оптимальные решения для устойчивого развития территорий на основе данных.</p>
+                <p>Наша миссия - сделать города более умными, удобными для жизни и устойчивыми с помощью данных и передовых технологий.</p>
+                
+                <div class="about-highlight">
+                    <p>Проект выполняется при поддержке гранта им. П.Л. Капицы Московского Политеха.</p>
+                </div>
+                
+                <p>Мы верим, что технологии должны служить людям и создавать комфортную городскую среду для всех жителей.</p>
+            </div>
+            <div class="about-image">
+                <img src="images/images/othet.svg" alt="История ИСУР">
+            </div>
+        </section>
+        
+        <!-- Ценности компании -->
+        <section class="values-section fade-in">
+            <div class="container">
+                <h2 class="section-title">Наши ценности</h2>
+                <p class="section-subtitle text-center">Основные принципы, которые направляют нашу работу и решения</p>
+                
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="value-title">Инновации</h3>
+                        <p>Мы постоянно исследуем и внедряем новые технологии для улучшения наших решений и повышения эффективности городского управления.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="value-title">Ориентация на клиента</h3>
+                        <p>Наши клиенты и их потребности находятся в центре всего, что мы делаем. Мы стремимся создавать решения, которые действительно решают проблемы.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="value-title">Эффективность</h3>
+                        <p>Мы стремимся к максимальной эффективности и результативности наших решений, оптимизируя процессы и ресурсы.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="value-title">Надежность</h3>
+                        <p>Мы гарантируем надежность и безопасность наших систем и данных, обеспечивая бесперебойную работу и защиту информации.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Команда -->
+        <section class="team-section fade-in">
+            <h2 class="section-title">Наша команда</h2>
+            <p class="section-subtitle">Профессионалы, которые создают будущее городского развития</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Шкаленко Анна Викторовна</h3>
+                        <p class="member-position">Руководитель проекта</p>
+                        <p>к.э.н., доцент сектора научной деятельности центра проектной деятельности Московского политеха. Опыт работы в области урбанистики и управления развитием территорий - более 10 лет.</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Команда дизайн-разработки</h3>
+                        <p class="member-position">Frontend & Backend разработчики</p>
+                        <p>Команда дизайнеров разрабатывает платформу, начиная с основного интерфейса и заканчивая созданием 3D-ассетов для цифрового помощника. Опыт в создании пользовательских интерфейсов - от 3 лет.</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Герасимов Илья Алексеевич</h3>
+                        <p class="member-position">Project-менеджер</p>
+                        <p>Специалист, который управляет проектами, координирует команду и контролирует выполнение задач в рамках установленных ресурсов и сроков. Сертифицированный специалист по Agile методологиям.</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Команда аналитиков</h3>
+                        <p class="member-position">ML-разработчики и аналитики данных</p>
+                        <p>Аналитики формируют рейтинги, анализируют взаимосвязи, готовят данные для визуализации и ML-моделей. Опыт работы с большими данными и машинным обучением - от 5 лет.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    
+        
+        <!-- CTA секция -->
+        <section class="cta-section fade-in">
+            <div class="cta-content">
+                <h2 class="cta-title">Готовы сделать ваш город умнее?</h2>
+                <p>Присоединяйтесь к числу наших клиентов и партнеров для создания устойчивого будущего</p>
+                
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i> Связаться с нами
+                    </a>
+                    <a href="analytics.html" class="btn btn-secondary">
+                        <i class="fas fa-chart-bar"></i> Посмотреть аналитику
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Улучшенный футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-phone"></i> Телефон: +7 (xxx) xxx-xx-xx</p>
+                    <p><i class="fas fa-envelope"></i> Email: исур@company.ru</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт: 9:00 - 18:00</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Адрес</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> г. Москва ул. Павла Корчагина, д. 22</p>
+                    <p><i class="fas fa-subway"></i> Метро: ВДНХ</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Социальные сети</h3>
+                    <p>Telegram | VK </p>
+                    <p>Подпишитесь на наши обновления</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ИСУР. Все права защищены.</p>
+                <p style="font-size: 0.75rem; margin-top: 0.5rem;">Интеллектуальная система управления развитием</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Адаптивное меню
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        // Анимация появления элементов при скролле
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.style.opacity = 1;
+                        element.style.animation = 'fadeIn 0.8s ease forwards';
+                    }
+                });
+            }
+            
+            // Проверяем при загрузке и при скролле
+            checkFade();
+            window.addEventListener('scroll', checkFade);
+            
+            // Анимация для карточек при загрузке
+            const cards = document.querySelectorAll('.value-card, .team-member, .achievement');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
