@@ -1,1 +1,2 @@
-это бек
+cd backend
+npm run start:all

@@ -6,1117 +6,24 @@
     <title>Контакты - ИСУР</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #1a56db;
-            --primary-dark: #1e429f;
-            --primary-light: #3f83f8;
-            --accent: #c80000;
-            --accent-light: #d33434;
-            --dark: #111827;
-            --light: #f9fafb;
-            --gray-light: #f3f4f6;
-            --gray: #6b7280;
-            --glass-bg: rgba(26, 86, 219, 0.85);
-            --glass-border: rgba(255, 255, 255, 0.18);
-            --border-radius: 16px;
-            --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08), 0 10px 20px -10px rgba(0, 0, 0, 0.04);
-            --elevated-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .comparison-counter {
-            background: #FF6B35;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            margin-left: 5px;
-        }
-
-        /* ===== УЛУЧШЕННАЯ ШАПКА ===== */
-        header {
-            background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(26, 86, 219, 0.95) 100%);
-            backdrop-filter: blur(20px);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            width: 100%;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-text {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: white;
-            letter-spacing: -0.5px;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            padding: 0.5rem 0;
-            position: relative;
-            transition: var(--transition);
-            white-space: nowrap;
-        }
-
-        nav a:hover {
-            color: white;
-            transform: translateY(-1px);
-        }
-
-        nav a.active {
-            color: white;
-            font-weight: 600;
-        }
-
-        nav a.active:after,
-        nav a:hover:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), white);
-            border-radius: 3px 3px 0 0;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-        }
-
-        .mobile-menu-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
-        .breadcrumbs {
-            padding: 1.5rem 0 1rem;
-            font-size: 0.9375rem;
-            color: var(--gray);
-            animation: fadeInUp 0.8s ease 0.4s both;
-        }
-
-        .breadcrumbs a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .breadcrumbs a:hover {
-            color: var(--primary-dark);
-        }
-
-        .breadcrumbs a:hover:after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: var(--primary);
-        }
-
-        .breadcrumbs span {
-            color: var(--gray);
-            margin: 0 0.5rem;
-        }
-
-        /* ===== УЛУЧШЕННАЯ ГЕРОЙ-СЕКЦИЯ ===== */
-        .hero {
-            background: linear-gradient(135deg, 
-                #1a56db 0%, 
-                #3f83f8 30%, 
-                #c80000 70%, 
-                #d33434 100%);
-            color: white;
-            padding: 6rem 0;
-            margin-bottom: 2rem;
-            border-radius: 0 0 2rem 2rem;
-            position: relative;
-            overflow: hidden;
-            isolation: isolate;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            right: -50%;
-            bottom: -50%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255,255,255,0.08) 0%, transparent 50%);
-            animation: pulse 15s ease-in-out infinite alternate;
-            z-index: -1;
-        }
-
-        @keyframes pulse {
-            0% { 
-                transform: translate(0, 0) rotate(0deg) scale(1); 
-                opacity: 0.8;
-            }
-            50% { 
-                transform: translate(-30px, -30px) rotate(90deg) scale(1.1); 
-                opacity: 1;
-            }
-            100% { 
-                transform: translate(30px, 30px) rotate(180deg) scale(1); 
-                opacity: 0.8;
-            }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .page-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, white, #e0f2fe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .page-description {
-            font-size: 1.25rem;
-            margin: 0 auto 3rem;
-            font-weight: 400;
-            opacity: 0.9;
-            line-height: 1.7;
-            max-width: 700px;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        /* ===== УЛУЧШЕННЫЕ КНОПКИ ===== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(26, 86, 219, 0.3);
-            border: none;
-            cursor: pointer;
-            min-width: 160px;
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.6s;
-        }
-
-        .btn:hover::after {
-            left: 100%;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(26, 86, 219, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(-1px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            color: white;
-            border: none;
-            padding: 1.25rem 3rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 10px 25px rgba(200, 0, 0, 0.3);
-            width: 100%;
-            margin-top: 1.5rem;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(200, 0, 0, 0.4);
-            background: linear-gradient(135deg, var(--accent-light), var(--accent));
-        }
-
-        /* ===== УЛУЧШЕННЫЕ СЕКЦИИ ===== */
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 4rem 0 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            display: inline-block;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            font-size: 1.125rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
-            max-width: 800px;
-            line-height: 1.7;
-            animation: fadeInUp 0.8s ease 0.1s both;
-        }
-
-        /* ===== УЛУЧШЕННЫЕ КАРТОЧКИ КОНТАКТОВ ===== */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        .contact-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 2.5rem;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .contact-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--elevated-shadow);
-            border-color: rgba(26, 86, 219, 0.1);
-        }
-
-        .contact-card h3 {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .contact-card h3 i {
-            font-size: 1.75rem;
-            background: linear-gradient(135deg, rgba(26, 86, 219, 0.1), rgba(26, 86, 219, 0.2));
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            transition: var(--transition);
-        }
-
-        .contact-card:hover h3 i {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .contact-info {
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding: 0.75rem;
-            border-radius: 8px;
-            transition: var(--transition);
-        }
-
-        .contact-item:hover {
-            background: var(--gray-light);
-            transform: translateX(5px);
-        }
-
-        .contact-item i {
-            color: var(--primary);
-            font-size: 1.25rem;
-            margin-top: 0.25rem;
-            width: 24px;
-        }
-
-        .contact-item-content h4 {
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 0.25rem;
-        }
-
-        .contact-item-content p {
-            color: var(--gray);
-            font-size: 0.9375rem;
-        }
-
-        /* ===== УЛУЧШЕННАЯ ФОРМА КОНТАКТОВ ===== */
-        .contact-form-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 2.5rem;
-            box-shadow: var(--elevated-shadow);
-            margin: 3rem 0;
-            border: 2px solid rgba(226, 232, 240, 0.6);
-            animation: fadeInUp 0.8s ease 0.3s both;
-            position: relative;
-        }
-
-        .contact-form-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.9375rem;
-        }
-
-        .required {
-            color: var(--accent);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            border: 2px solid rgba(226, 232, 240, 0.8);
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: var(--transition);
-            background: white;
-            color: var(--dark);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        /* ===== УЛУЧШЕННЫЙ ЧАТ-ПОМОЩНИК ===== */
-        .assistant-section {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
-            padding: 4rem;
-            border-radius: 30px;
-            margin: 4rem 0;
-            box-shadow: var(--elevated-shadow);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease 0.4s both;
-        }
-
-        .assistant-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
-        }
-
-        .assistant-content {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .assistant-image {
-            flex: 1;
-            min-width: 250px;
-            text-align: center;
-            position: relative;
-        }
-
-        .assistant-image img {
-            height: 200px;
-            width: auto;
-            transition: var(--transition);
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 10px 20px rgba(26, 86, 219, 0.2));
-        }
-
-        @keyframes float {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg); 
-            }
-            50% { 
-                transform: translateY(-20px) rotate(5deg); 
-            }
-        }
-
-        .assistant-text {
-            flex: 2;
-            min-width: 300px;
-        }
-
-        .assistant-text h3 {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .assistant-text p {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-            font-size: 1.125rem;
-        }
-
-        /* ===== УЛУЧШЕННАЯ КАРТА ===== */
-        .map-section {
-            margin: 4rem 0;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--elevated-shadow);
-            animation: fadeInUp 0.8s ease 0.5s both;
-            position: relative;
-        }
-
-        .map-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            z-index: 2;
-        }
-
-        .map-container {
-            height: 500px;
-            width: 100%;
-            position: relative;
-        }
-
-        .map-info {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--elevated-shadow);
-            max-width: 300px;
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .map-info h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .map-info p {
-            color: var(--gray);
-            margin-bottom: 0.75rem;
-            font-size: 0.9375rem;
-        }
-
-        /* ===== FAQ СЕКЦИЯ ===== */
-        .faq-section {
-            margin: 4rem 0;
-            animation: fadeInUp 0.8s ease 0.6s both;
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .faq-item {
-            background: white;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-            border: 2px solid transparent;
-        }
-
-        .faq-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--elevated-shadow);
-            border-color: rgba(26, 86, 219, 0.1);
-        }
-
-        .faq-question {
-            padding: 1.5rem 2rem;
-            background: linear-gradient(135deg, rgba(26, 86, 219, 0.05), rgba(26, 86, 219, 0.02));
-            font-weight: 600;
-            color: var(--primary);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition);
-        }
-
-        .faq-question:hover {
-            background: linear-gradient(135deg, rgba(26, 86, 219, 0.1), rgba(26, 86, 219, 0.05));
-        }
-
-        .faq-question i {
-            transition: transform 0.3s ease;
-        }
-
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            padding: 0 2rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item.active .faq-answer {
-            padding: 0 2rem 1.5rem 2rem;
-            max-height: 500px;
-        }
-
-        .faq-answer p {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-
-        /* ===== УВЕДОМЛЕНИЯ ===== */
-        .notification {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            padding: 1rem 1.5rem;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--elevated-shadow);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            z-index: 2000;
-            transform: translateX(150%);
-            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            border-left: 4px solid var(--primary);
-            min-width: 300px;
-            max-width: 400px;
-            backdrop-filter: blur(10px);
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification.success {
-            border-left-color: var(--accent);
-        }
-
-        .notification.error {
-            border-left-color: #ef4444;
-        }
-
-        .notification.info {
-            border-left-color: var(--primary);
-        }
-
-        .notification i {
-            font-size: 1.25rem;
-            color: inherit;
-        }
-
-        .notification.success i {
-            color: var(--accent);
-        }
-
-        .notification.error i {
-            color: #ef4444;
-        }
-
-        .notification.info i {
-            color: var(--primary);
-        }
-
-        /* ===== УЛУЧШЕННЫЙ ФУТЕР ===== */
-        footer {
-            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-            color: white;
-            padding: 3rem 0 1rem;
-            margin-top: 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section {
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            font-size: 1.25rem;
-            position: relative;
-            padding-bottom: 0.75rem;
-            color: white;
-        }
-
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 3px;
-        }
-
-        .footer-section p {
-            margin-bottom: 0.75rem;
-            font-size: 0.9375rem;
-            opacity: 0.8;
-            transition: var(--transition);
-        }
-
-        .footer-section p:hover {
-            opacity: 1;
-            transform: translateX(5px);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 1.25rem;
-        }
-
-        .social-links a:hover {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            transform: translateY(-5px) rotate(10deg);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .footer-bottom {
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            font-size: 0.875rem;
-            opacity: 0.7;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ===== АДАПТИВНОСТЬ ===== */
-        @media (max-width: 1024px) {
-            .container {
-                max-width: 100%;
-                padding: 0 1.5rem;
-            }
-            
-            .page-title {
-                font-size: 3rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-            
-            nav {
-                display: none;
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: var(--primary-dark);
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: var(--elevated-shadow);
-                gap: 0;
-                z-index: 999;
-                border-radius: 0 0 var(--border-radius) var(--border-radius);
-            }
-            
-            nav.active {
-                display: flex;
-                animation: slideDown 0.3s ease;
-            }
-            
-            nav a {
-                padding: 1rem;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            
-            nav a:last-child {
-                border-bottom: none;
-            }
-            
-            .mobile-menu-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .hero {
-                padding: 4rem 0;
-            }
-            
-            .page-title {
-                font-size: 2.5rem;
-            }
-            
-            .page-description {
-                font-size: 1.125rem;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .assistant-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .map-info {
-                position: relative;
-                top: 0;
-                left: 0;
-                max-width: 100%;
-                margin-bottom: 1rem;
-            }
-            
-            .faq-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .footer-section h3::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            
-            .social-links {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .logo img {
-                height: 40px;
-            }
-            
-            .logo-text {
-                font-size: 1rem;
-            }
-            
-            .hero {
-                padding: 3rem 0;
-                border-radius: 0 0 1rem 1rem;
-            }
-            
-            .page-title {
-                font-size: 2rem;
-            }
-            
-            .page-description {
-                font-size: 1rem;
-            }
-            
-            .btn {
-                padding: 0.875rem 1.5rem;
-                font-size: 0.9375rem;
-            }
-            
-            .section-title {
-                font-size: 1.75rem;
-            }
-            
-            .contact-card,
-            .contact-form-card,
-            .assistant-section {
-                padding: 1.5rem;
-            }
-            
-            .map-container {
-                height: 350px;
-            }
-        }
-
-        /* ===== УТИЛИТАРНЫЕ КЛАССЫ ===== */
-        .text-center { text-align: center; }
-        .mt-1 { margin-top: 0.5rem; }
-        .mt-2 { margin-top: 1rem; }
-        .mt-3 { margin-top: 1.5rem; }
-        .mt-4 { margin-top: 2rem; }
-        .mt-5 { margin-top: 3rem; }
-        .mb-1 { margin-bottom: 0.5rem; }
-        .mb-2 { margin-bottom: 1rem; }
-        .mb-3 { margin-bottom: 1.5rem; }
-        .mb-4 { margin-bottom: 2rem; }
-        .mb-5 { margin-bottom: 3rem; }
-        .d-flex { display: flex; }
-        .d-grid { display: grid; }
-        .justify-center { justify-content: center; }
-        .align-center { align-items: center; }
-        .w-100 { width: 100%; }
-        .h-100 { height: 100%; }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeInUp 0.8s ease forwards;
-        }
-    </style>
+     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Улучшенная шапка -->
     <header>
         <div class="container header-content">
             <div class="logo-container">
                 <div class="logo">
                     <img src="images/images/logo1.svg" alt="ИСУР Логотип">
                 </div>
-                <div class="logo-text"></div>
+                <div class="logo-text">ИСУР</div>
             </div>
             <nav id="mainNav">
                 <a href="index.html">Главная</a>
                 <a href="about.html">О нас</a>
+                <a href="services.html">Цифровой помощник</a>
                 <a href="analytics.html">Аналитика</a>
+                <a href="diffs.html">Сравнение объектов</a>
                 <a href="contact.html" class="active">Контакты</a>
-                <a href="diffs.html">Сравнение объектов<span class="comparison-counter" id="comparison-counter" style="display: none;">0</span></a>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
@@ -1124,14 +31,12 @@
         </div>
     </header>
 
-    <!-- Хлебные крошки -->
     <div class="container">
         <div class="breadcrumbs">
             <a href="index.html">Главная</a> <span>></span> <a href="contact.html">Контакты</a>
         </div>
     </div>
     
-    <!-- Улучшенная Hero секция -->
     <section class="hero">
         <div class="container hero-content">
             <h1 class="page-title">Свяжитесь с нами</h1>
@@ -1139,98 +44,71 @@
         </div>
     </section>
 
-    <!-- Основной контент -->
     <div class="container">
-        <!-- Информация о контактах -->
         <section class="fade-in">
             <h2 class="section-title">Контактная информация</h2>
-            <p class="section-subtitle text-center">Вы можете связаться с нами любым удобным способом. </p>
+            <p class="section-subtitle text-center">Вы можете связаться с нами любым удобным способом.</p>
             
             <div class="contact-grid">
                 <div class="contact-card">
                     <h3><i class="fas fa-map-marker-alt"></i> Адрес</h3>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-building"></i>
-                            <div class="contact-item-content">
-                                <h4>Основной офис</h4>
-                                <p>г. Москва, ул. Павла Корчагина, д. 22</p>
-                            </div>
+                    <div class="contact-item">
+                        <i class="fas fa-building"></i>
+                        <div class="contact-item-content">
+                            <h4>Основной офис</h4>
+                            <p>г. Москва, ул. Павла Корчагина, д. 22</p>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-subway"></i>
-                            <div class="contact-item-content">
-                                <h4>Метро</h4>
-                                <p>ВДНХ (5 минут пешком)</p>
-                                <p>Алексеевская (10 минут пешком)</p>
-                            </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-subway"></i>
+                        <div class="contact-item-content">
+                            <h4>Метро</h4>
+                            <p>ВДНХ (5 минут пешком)</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="contact-card">
                     <h3><i class="fas fa-phone"></i> Телефоны</h3>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-headset"></i>
-                            <div class="contact-item-content">
-                                <h4>Общий телефон</h4>
-                                <p>+7 (ххх) ххх-хх-хх</p>
-                                <p>Пн-Пт: 9:00-18:00</p>
-                            </div>
+                    <div class="contact-item">
+                        <i class="fas fa-headset"></i>
+                        <div class="contact-item-content">
+                            <h4>Общий телефон</h4>
+                            <p>+7 (495) 123-45-67</p>
+                            <p>Пн-Пт: 9:00-18:00</p>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-life-ring"></i>
-                            <div class="contact-item-content">
-                                <h4>Техническая поддержка</h4>
-                                <p>+7 (ххх) ххх-хх-хх</p>
-                                <p>support@isur.ru</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-handshake"></i>
-                            <div class="contact-item-content">
-                                <h4>Сотрудничество</h4>
-                                <p>+7 (ххх) ххх-хх-хх</p>
-                                <p>partner@isur.ru</p>
-                            </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-life-ring"></i>
+                        <div class="contact-item-content">
+                            <h4>Техническая поддержка</h4>
+                            <p>+7 (495) 123-45-68</p>
+                            <p>support@isur.ru</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="contact-card">
                     <h3><i class="fas fa-envelope"></i> Электронная почта</h3>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-inbox"></i>
-                            <div class="contact-item-content">
-                                <h4>Общие вопросы</h4>
-                                <p>info@isur.ru</p>
-                                <p>Ответ в течение 24 часов</p>
-                            </div>
+                    <div class="contact-item">
+                        <i class="fas fa-inbox"></i>
+                        <div class="contact-item-content">
+                            <h4>Общие вопросы</h4>
+                            <p>info@isur.ru</p>
+                            <p>Ответ в течение 24 часов</p>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-briefcase"></i>
-                            <div class="contact-item-content">
-                                <h4>Карьера</h4>
-                                <p>career@isur.ru</p>
-                                <p>Вакансии и стажировки</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-lightbulb"></i>
-                            <div class="contact-item-content">
-                                <h4>Предложения</h4>
-                                <p>ideas@isur.ru</p>
-                                <p>Предложения по улучшению</p>
-                            </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-briefcase"></i>
+                        <div class="contact-item-content">
+                            <h4>Сотрудничество</h4>
+                            <p>partner@isur.ru</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Форма обратной связи -->
         <section class="fade-in">
             <div class="contact-form-card">
                 <h2 class="section-title">Форма обратной связи</h2>
@@ -1242,22 +120,18 @@
                             <label for="firstName">Имя <span class="required">*</span></label>
                             <input type="text" id="firstName" placeholder="Введите ваше имя" required>
                         </div>
-                        
                         <div class="form-group">
                             <label for="lastName">Фамилия <span class="required">*</span></label>
                             <input type="text" id="lastName" placeholder="Введите вашу фамилию" required>
                         </div>
-                        
                         <div class="form-group">
                             <label for="email">Электронная почта <span class="required">*</span></label>
                             <input type="email" id="email" placeholder="example@mail.ru" required>
                         </div>
-                        
                         <div class="form-group">
                             <label for="phone">Телефон</label>
                             <input type="tel" id="phone" placeholder="+7 (XXX) XXX-XX-XX">
                         </div>
-                        
                         <div class="form-group full-width">
                             <label for="subject">Тема обращения <span class="required">*</span></label>
                             <select id="subject" required>
@@ -1266,17 +140,14 @@
                                 <option value="technical">Техническая поддержка</option>
                                 <option value="partnership">Сотрудничество</option>
                                 <option value="suggestion">Предложение по улучшению</option>
-                                <option value="complaint">Жалоба</option>
                                 <option value="other">Другое</option>
                             </select>
                         </div>
-                        
                         <div class="form-group full-width">
                             <label for="message">Сообщение <span class="required">*</span></label>
                             <textarea id="message" placeholder="Опишите ваш вопрос или предложение..." required></textarea>
                         </div>
                     </div>
-                    
                     <button type="submit" class="btn-submit">
                         <i class="fas fa-paper-plane"></i> Отправить сообщение
                     </button>
@@ -1284,8 +155,22 @@
             </div>
         </section>
         
+        <section class="assistant-section fade-in">
+            <div class="assistant-content">
+                <div class="assistant-image">
+                    <img src="images/images/Component 29 (1) (1).png" alt="Робот МИМИ">
+                </div>
+                <div class="assistant-text">
+                    <h3>Нужна быстрая помощь?</h3>
+                    <p>Наш цифровой помощник МИМИ готов ответить на ваши вопросы 24/7. Получите мгновенные ответы на часто задаваемые вопросы или начните диалог для решения сложных задач.</p>
+                    <p>МИМИ может помочь с техническими вопросами, консультациями по системе и даже записаться на встречу с нашими специалистами.</p>
+                    <a href="services.html" class="btn">
+                        <i class="fas fa-comments"></i> Начать общение с МИМИ
+                    </a>
+                </div>
+            </div>
+        </section>
         
-        <!-- FAQ -->
         <section class="faq-section">
             <h2 class="section-title">Часто задаваемые вопросы</h2>
             <p class="section-subtitle text-center">Ответы на самые популярные вопросы о работе с нашей системой</p>
@@ -1298,16 +183,6 @@
                     </div>
                     <div class="faq-answer">
                         <p>Мы отвечаем на все сообщения в течение 24 часов в рабочие дни. На запросы, полученные в выходные, отвечаем в первый рабочий день. Для срочных вопросов рекомендуем использовать телефон.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Можно ли приехать в офис без предварительной записи?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Да, вы можете приехать в наш офис в рабочие часы (Пн-Пт, 9:00-18:00). Однако для гарантированного приема рекомендуем записаться заранее по телефону или через форму на сайте.</p>
                     </div>
                 </div>
                 
@@ -1333,16 +208,6 @@
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>Есть ли у вас вакансии?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Да, мы регулярно ищем талантливых специалистов. Актуальные вакансии и условия стажировок можно найти на странице "Карьера" или отправить резюме на career@isur.ru.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
                         <span>Работаете ли вы с регионами?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
@@ -1354,7 +219,6 @@
         </section>
     </div>
 
-    <!-- Улучшенный футер -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -1371,7 +235,7 @@
                 </div>
                 <div class="footer-section">
                     <h3>Социальные сети</h3>
-                    <p>Telegram | VK </p>
+                    <p>Telegram | VK</p>
                     <p>Подпишитесь на наши обновления</p>
                     <div class="social-links">
                         <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
@@ -1386,12 +250,11 @@
         </div>
     </footer>
 
-    <!-- Уведомления -->
     <div class="notification info" id="notification">
         <i class="fas fa-info-circle"></i>
         <div id="notification-message">Уведомление</div>
     </div>
 
-    <script src="/backend/feedback.js"></script>
+    <script src="js/script.js"></script>   
 </body>
 </html>

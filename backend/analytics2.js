@@ -128,7 +128,7 @@ function getDistrictByCoordinates(lat, lon) {
 // Обновление слоя кластеров
 function updateClusterLayer() {
   if (!source) return;
-  
+
   const filteredFeatures = [];
   if (filterBuilding?.checked)
     filteredFeatures.push(...allFeaturesByType.building);
@@ -142,7 +142,7 @@ function updateClusterLayer() {
   if (filteredFeatures.length > 0) {
     source.addFeatures(filteredFeatures);
   }
-  
+
   // Обновляем статистику
   updateStats();
 }
@@ -154,7 +154,7 @@ function updateStats() {
   const hospitalCount = document.getElementById("hospital-count");
   const metroCount = document.getElementById("metro-count");
   const stopCount = document.getElementById("stop-count");
-  
+
   if (buildingCount) buildingCount.textContent = allFeaturesByType.building.length;
   if (schoolCount) schoolCount.textContent = allFeaturesByType.school.length;
   if (hospitalCount) hospitalCount.textContent = allFeaturesByType.hospital.length;
@@ -165,42 +165,42 @@ function updateStats() {
 // Показать информацию об объекте в панели
 function showInfoPanel(event, data) {
   if (!infoPanel) return;
-  
+
   // Устанавливаем позицию панели в месте клика
   const mapContainer = document.getElementById('map-container');
   const rect = mapContainer.getBoundingClientRect();
-  
+
   // Координаты клика относительно карты
   let x = event.clientX - rect.left + 20;
   let y = event.clientY - rect.top + 20;
-  
+
   // Проверяем, чтобы панель не выходила за границы карты
   if (x + 400 > rect.width) {
     x = event.clientX - rect.left - 420;
   }
-  
+
   if (y + 300 > rect.height) {
     y = event.clientY - rect.top - 320;
   }
-  
+
   infoPanel.style.left = x + 'px';
   infoPanel.style.top = y + 'px';
-  
+
   // Заполняем данные
   infoTitle.textContent = data.title || 'Информация';
   infoContent.innerHTML = data.content || 'Нет информации';
-  
+
   // Настраиваем кнопку добавления к сравнению
   if (data.type === 'building' && data.id) {
     addToCompareBtn.style.display = 'flex';
-    addToCompareBtn.onclick = function() {
+    addToCompareBtn.onclick = function () {
       addToComparison(data);
     };
-    
+
     // Проверяем, добавлен ли уже этот объект
     const buildings = JSON.parse(localStorage.getItem('isur_buildings_comparison') || '[]');
     const isAlreadyAdded = buildings.some(b => b.id === data.id);
-    
+
     if (isAlreadyAdded) {
       addToCompareBtn.innerHTML = '<i class="fas fa-check"></i> Уже добавлено';
       addToCompareBtn.classList.add('disabled');
@@ -213,7 +213,7 @@ function showInfoPanel(event, data) {
   } else {
     addToCompareBtn.style.display = 'none';
   }
-  
+
   // Настраиваем кнопку детального анализа
   if (data.detailsUrl) {
     detailedAnalysisBtn.href = data.detailsUrl;
@@ -221,13 +221,13 @@ function showInfoPanel(event, data) {
   } else {
     detailedAnalysisBtn.style.display = 'none';
   }
-  
+
   // Сохраняем текущий объект
   currentSelectedObject = data;
-  
+
   // Показываем панель
   infoPanel.classList.add('show');
-  
+
   // Добавляем обработчик кликов для закрытия панели
   setTimeout(() => {
     document.addEventListener('click', handleOutsideClick);
@@ -237,25 +237,25 @@ function showInfoPanel(event, data) {
 // Обработчик клика вне панели
 function handleOutsideClick(event) {
   if (!infoPanel || !infoPanel.classList.contains('show')) return;
-  
+
   // Проверяем, был ли клик внутри панели
   if (infoPanel.contains(event.target)) {
     return; // Клик внутри панели - не закрываем
   }
-  
+
   // Проверяем, был ли клик на кнопке закрытия
   if (event.target === closeBtn || event.target.closest('#close-btn')) {
     closeInfoPanel();
     return;
   }
-  
+
   // Проверяем, был ли клик на чекбоксах фильтров
-  if (event.target.closest('.filter-options') || 
-      event.target.closest('.map-controls') ||
-      event.target.closest('.map-buttons')) {
+  if (event.target.closest('.filter-options') ||
+    event.target.closest('.map-controls') ||
+    event.target.closest('.map-buttons')) {
     return; // Не закрываем при клике на элементы управления картой
   }
-  
+
   // Закрываем панель при клике в любом другом месте
   closeInfoPanel();
 }
@@ -265,7 +265,7 @@ function closeInfoPanel() {
   if (infoPanel) {
     infoPanel.classList.remove('show');
     currentSelectedObject = null;
-    
+
     // Удаляем обработчик кликов
     document.removeEventListener('click', handleOutsideClick);
   }
@@ -278,29 +278,29 @@ function addToComparison(objectData) {
     const stored = localStorage.getItem(storageKey);
     let buildings = stored ? JSON.parse(stored) : [];
     const maxBuildings = 5;
-    
+
     // Проверяем, не добавлен ли уже этот объект
     const exists = buildings.some(b => b.id === objectData.id);
-    
+
     if (exists) {
       showNotification('Этот объект уже добавлен в сравнение', 'warning');
       return false;
     }
-    
+
     // Проверяем лимит (максимум 5 объектов)
     if (buildings.length >= maxBuildings) {
       showNotification(`Достигнут лимит сравнения: ${maxBuildings} объектов. Перейдите на страницу сравнения и удалите ненужные объекты.`, 'error');
-      
+
       // Показать ссылку на страницу сравнения
       setTimeout(() => {
         if (confirm(`Достигнут лимит сравнения (${maxBuildings} объектов). Перейти на страницу сравнения?`)) {
           window.open('diffs.html', '_blank');
         }
       }, 500);
-      
+
       return false;
     }
-    
+
     // Добавляем объект
     buildings.push({
       id: objectData.id,
@@ -318,27 +318,27 @@ function addToComparison(objectData) {
       is_emergency: objectData.is_emergency,
       addedAt: new Date().toISOString()
     });
-    
+
     // Сохраняем в localStorage
     localStorage.setItem(storageKey, JSON.stringify(buildings));
-    
+
     // Обновляем счетчик в навигации
     updateComparisonCounter();
-    
+
     // Обновляем кнопку в панели
     if (addToCompareBtn) {
       addToCompareBtn.innerHTML = '<i class="fas fa-check"></i> Уже добавлено';
       addToCompareBtn.classList.add('disabled');
       addToCompareBtn.disabled = true;
     }
-    
+
     // Показываем уведомление с информацией о текущем количестве
     showNotification(`Объект добавлен к сравнению (${buildings.length}/${maxBuildings})`, 'success');
-    
+
     // Генерируем событие обновления сравнения
     const event = new Event('comparisonUpdated');
     window.dispatchEvent(event);
-    
+
     return true;
   } catch (error) {
     console.error('Ошибка при добавлении к сравнению:', error);
@@ -354,16 +354,16 @@ function updateComparisonCounter() {
     const stored = localStorage.getItem(storageKey);
     const buildings = stored ? JSON.parse(stored) : [];
     const maxBuildings = 5;
-    
+
     const counter = document.getElementById('comparison-counter');
-    
+
     if (counter) {
       counter.textContent = buildings.length;
       counter.style.display = buildings.length > 0 ? 'inline-flex' : 'none';
-      
+
       // Добавляем подсказку с лимитом
       counter.title = `Объектов в сравнении: ${buildings.length} из ${maxBuildings}`;
-      
+
       // Если достигнут лимит, меняем цвет счетчика
       if (buildings.length >= maxBuildings) {
         counter.style.background = '#EF4444'; // Красный
@@ -373,7 +373,7 @@ function updateComparisonCounter() {
         counter.style.background = '#FF6B35'; // Оранжево-красный по умолчанию
       }
     }
-    
+
     // Также обновляем счетчик на странице аналитики, если он есть
     const comparisonLink = document.querySelector('a[href="diffs.html"]');
     if (comparisonLink) {
@@ -398,7 +398,7 @@ function updateComparisonCounter() {
       counterElement.textContent = buildings.length;
       counterElement.style.display = buildings.length > 0 ? 'inline-flex' : 'none';
       counterElement.title = `Объектов в сравнении: ${buildings.length} из ${maxBuildings}`;
-      
+
       if (buildings.length >= maxBuildings) {
         counterElement.style.background = '#EF4444';
       } else if (buildings.length >= maxBuildings - 1) {
@@ -415,27 +415,27 @@ function showNotification(message, type = 'info') {
   const notification = document.getElementById('notification');
   const notificationMessage = document.getElementById('notification-message');
   const notificationProgress = document.getElementById('notification-progress');
-  
+
   if (!notification || !notificationMessage) return;
-  
+
   notification.className = `notification ${type}`;
   notificationMessage.textContent = message;
-  
+
   // Сбрасываем прогресс-бар
   if (notificationProgress) {
     notificationProgress.style.width = '0%';
   }
-  
+
   // Показываем уведомление
   notification.classList.add('show');
-  
+
   // Анимируем прогресс-бар
   if (notificationProgress) {
     setTimeout(() => {
       notificationProgress.style.width = '100%';
     }, 10);
   }
-  
+
   // Скрываем через 3 секунды
   setTimeout(() => {
     notification.classList.remove('show');
@@ -451,7 +451,7 @@ async function loadData(url, retries = 1) {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 15000);
-      
+
       const isLocalFile = !url.startsWith('http');
       const fetchOptions = {
         method: 'GET',
@@ -460,16 +460,16 @@ async function loadData(url, retries = 1) {
         },
         signal: controller.signal
       };
-      
+
       if (!isLocalFile) {
         fetchOptions.mode = 'cors';
       }
-      
+
       const response = await fetch(url, fetchOptions);
       clearTimeout(timeoutId);
-      
+
       if (!response.ok) throw new Error(`Ошибка: ${response.statusText}`);
-      
+
       try {
         return await response.json();
       } catch (jsonError) {
@@ -498,11 +498,11 @@ async function loadData(url, retries = 1) {
           console.error(`Ошибка загрузки данных (${url}):`, error);
         }
       }
-      
+
       if (i >= retries) {
         return null;
       }
-      
+
       await new Promise(resolve => setTimeout(resolve, 500));
     }
   }
@@ -512,7 +512,7 @@ async function loadData(url, retries = 1) {
 // Анализ данных и создание статистики по районам на основе реальных координат
 function analyzeDistrictData() {
   const districts = {};
-  
+
   // Инициализация районов
   moscowDistrictsData.forEach(district => {
     districts[district.name] = { ...district };
@@ -522,7 +522,7 @@ function analyzeDistrictData() {
   allFeaturesByType.school.forEach(school => {
     const lat = parseFloat(school.get('lat'));
     const lon = parseFloat(school.get('lon'));
-    
+
     if (!isNaN(lat) && !isNaN(lon)) {
       const district = getDistrictByCoordinates(lat, lon);
       if (districts[district]) {
@@ -530,12 +530,12 @@ function analyzeDistrictData() {
       }
     }
   });
-  
+
   // Анализ больниц по реальным координатам
   allFeaturesByType.hospital.forEach(hospital => {
     const lat = parseFloat(hospital.get('lat'));
     const lon = parseFloat(hospital.get('lon'));
-    
+
     if (!isNaN(lat) && !isNaN(lon)) {
       const district = getDistrictByCoordinates(lat, lon);
       if (districts[district]) {
@@ -543,12 +543,12 @@ function analyzeDistrictData() {
       }
     }
   });
-  
+
   // Анализ метро по реальным координатам
   allFeaturesByType.metro.forEach(metro => {
     const lat = parseFloat(metro.get('lat'));
     const lon = parseFloat(metro.get('lon'));
-    
+
     if (!isNaN(lat) && !isNaN(lon)) {
       const district = getDistrictByCoordinates(lat, lon);
       if (districts[district]) {
@@ -556,12 +556,12 @@ function analyzeDistrictData() {
       }
     }
   });
-  
+
   // Анализ остановок по реальным координатам
   allFeaturesByType.stop.forEach(stop => {
     const lat = parseFloat(stop.get('lat'));
     const lon = parseFloat(stop.get('lon'));
-    
+
     if (!isNaN(lat) && !isNaN(lon)) {
       const district = getDistrictByCoordinates(lat, lon);
       if (districts[district]) {
@@ -569,12 +569,12 @@ function analyzeDistrictData() {
       }
     }
   });
-  
+
   // Анализ зданий по реальным координатам
   allFeaturesByType.building.forEach(building => {
     const lat = parseFloat(building.get('lat'));
     const lon = parseFloat(building.get('lon'));
-    
+
     if (!isNaN(lat) && !isNaN(lon)) {
       const district = getDistrictByCoordinates(lat, lon);
       if (districts[district]) {
@@ -582,16 +582,16 @@ function analyzeDistrictData() {
       }
     }
   });
-  
+
   // Обновляем расчетные показатели на основе реальных данных
   const updatedDistricts = Object.values(districts).map(district => {
     // Пересчитываем индексы на основе реального количества объектов
     const transport = Math.min(100, Math.round((district.metro * 5 + district.stops * 0.05) / 5));
-    const education = Math.min(100, Math.round((district.schools / district.population * 100000)*2.5));
+    const education = Math.min(100, Math.round((district.schools / district.population * 100000) * 2.5));
     const healthcare = Math.min(100, Math.round((district.hospitals / district.population * 100000)));
     const housing = Math.min(100, Math.round((district.buildings / district.population * 10000)));
     const infrastructure = Math.min(100, Math.round((transport + education + healthcare + housing) / 4));
-    
+
     return {
       ...district,
       transport,
@@ -605,7 +605,6 @@ function analyzeDistrictData() {
   // Обновляем переменную moscowDistricts
   moscowDistricts = updatedDistricts;
 
-  console.log('Анализ данных по районам завершен:', moscowDistricts);
 }
 
 // Инициализация аналитических графиков на основе реальных данных
@@ -614,13 +613,12 @@ function initAnalyticsCharts() {
     console.warn('Нет данных для инициализации графиков');
     return;
   }
-  
+
   const districtNames = moscowDistricts.map(d => d.name);
-  
+
   // Настройки для всех графиков
   const chartOptions = {
     responsive: true,
-    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
@@ -655,7 +653,7 @@ function initAnalyticsCharts() {
     if (window.transportChart) {
       window.transportChart.destroy();
     }
-    
+
     window.transportChart = new Chart(transportCtx, {
       type: 'bar',
       data: {
@@ -678,7 +676,7 @@ function initAnalyticsCharts() {
     if (window.educationChart) {
       window.educationChart.destroy();
     }
-    
+
     window.educationChart = new Chart(educationCtx, {
       type: 'bar',
       data: {
@@ -701,7 +699,7 @@ function initAnalyticsCharts() {
     if (window.healthcareChart) {
       window.healthcareChart.destroy();
     }
-    
+
     window.healthcareChart = new Chart(healthcareCtx, {
       type: 'bar',
       data: {
@@ -724,7 +722,7 @@ function initAnalyticsCharts() {
     if (window.housingChart) {
       window.housingChart.destroy();
     }
-    
+
     window.housingChart = new Chart(housingCtx, {
       type: 'bar',
       data: {
@@ -751,7 +749,7 @@ function updateDistrictStats(districtName) {
   const areaElement = document.getElementById('district-area');
   const densityElement = document.getElementById('district-density');
   const infrastructureElement = document.getElementById('district-infrastructure');
-  
+
   if (populationElement) populationElement.textContent = district.population.toLocaleString();
   if (areaElement) areaElement.textContent = district.area;
   if (densityElement) densityElement.textContent = district.density.toLocaleString();
@@ -812,7 +810,7 @@ function initDistrictSelector() {
   if (!districtSelect || moscowDistricts.length === 0) return;
 
   districtSelect.innerHTML = '<option value="">Выберите район Москвы</option>';
-  
+
   moscowDistricts.forEach(district => {
     const option = document.createElement('option');
     option.value = district.name;
@@ -820,7 +818,7 @@ function initDistrictSelector() {
     districtSelect.appendChild(option);
   });
 
-  districtSelect.addEventListener('change', function() {
+  districtSelect.addEventListener('change', function () {
     updateDistrictStats(this.value);
   });
 
@@ -843,7 +841,7 @@ if (typeof ol === 'undefined') {
 // Основная функция инициализации
 async function initializeApplication() {
   console.log('Начало инициализации приложения...');
-  
+
   try {
     // Загружаем данные из локальных файлов
     const results = await Promise.allSettled([
@@ -859,7 +857,7 @@ async function initializeApplication() {
     const hospitalsData = results[2].status === 'fulfilled' ? results[2].value : null;
     const metroData = results[3].status === 'fulfilled' ? results[3].value : null;
     const stopData = results[4].status === 'fulfilled' ? results[4].value : null;
-    
+
     console.log('Данные загружены:', {
       buildings: buildingsData ? Object.keys(buildingsData.buildings || {}).length : 0,
       schools: schoolsData ? Object.keys(schoolsData.schools || {}).length : 0,
@@ -896,7 +894,7 @@ async function initializeApplication() {
           parseFloat(school[7]),
         ]);
         const feature = new ol.Feature(new ol.geom.Point(coords));
-        
+
         feature.set("type", "school");
         feature.set("id", school[0]);
         feature.set("name", school[1]);
@@ -917,7 +915,7 @@ async function initializeApplication() {
           parseFloat(hospital[2]),
         ]);
         const feature = new ol.Feature(new ol.geom.Point(coords));
-        
+
         feature.set("type", "hospital");
         feature.set("id", hospital[0]);
         feature.set("name", hospital[1]);
@@ -935,7 +933,7 @@ async function initializeApplication() {
           parseFloat(metro[2]),
         ]);
         const feature = new ol.Feature(new ol.geom.Point(coords));
-        
+
         feature.set("type", "metro");
         feature.set("id", metro[0]);
         feature.set("name", metro[1]);
@@ -967,7 +965,7 @@ async function initializeApplication() {
 
     // Анализируем данные для графиков на основе реальных координат
     analyzeDistrictData();
-    
+
     // Инициализируем графики и селектор районов
     initAnalyticsCharts();
     initDistrictSelector();
@@ -986,7 +984,7 @@ async function initializeApplication() {
       style: function (feature) {
         const features = feature.get("features");
         if (!features || features.length === 0) return null;
-        
+
         const type = features[0].get("type");
         const size = features.length;
 
@@ -1091,7 +1089,7 @@ async function initializeApplication() {
           closeInfoPanel();
           return;
         }
-        
+
         const clusterFeatures = featureAtPixel.get("features");
 
         if (clusterFeatures.length > 1) {
@@ -1134,43 +1132,32 @@ async function initializeApplication() {
 
 // Функции показа деталей объектов
 async function showBuildingDetails(feature, event) {
-    const buildingId = feature.get("id");
-    let socialScore = "Н/Д",
-      qualityScore = "Н/Д",
-      transportScore = "Н/Д",
-      totalScore = "Н/Д",
-      lat = feature.get("lat") || "Н/Д",
-      lon = feature.get("lon") || "Н/Д",
-      build_year = feature.get("build_year") || "Н/Д",
-      is_emergency = feature.get("is_emergency") ? "Да" : "Нет",
-      floors = feature.get("floors") || "Н/Д";
-  
-    try {
-      const ratingResponse = await fetch(
-        `http://2.56.242.156:5000/api/building_ratings/${buildingId}`,
-      );
-      if (ratingResponse.ok) {
-        const ratingData = await ratingResponse.json();
-        const ratings = ratingData.building_rating;
-        if (ratings && ratings.length >= 6) {
-          [, socialScore, qualityScore, transportScore, totalScore] = ratings;
-        }
-      }
-  
-      const buildingResponse = await fetch(
-        `http://2.56.242.156:5000/api/buildings/${buildingId}`,
-      );
-      if (buildingResponse.ok) {
-        const buildingData = await buildingResponse.json();
-        const building = buildingData.building;
-        lat = parseFloat(building[11]).toFixed(6);
-        lon = parseFloat(building[12]).toFixed(6);
-        floors = building[4];
-        build_year = building[3];
-        is_emergency = building[5] ? "Да" : "Нет";
-      }
-  
-      const ratingText = `
+  const buildingId = feature.get("id");
+  const buildingsData = await loadData("/backend/buildings.json");
+
+  let socialScore = "Н/Д", qualityScore = "Н/Д", transportScore = "Нй/Д", totalScore = "Н/Д";
+  let lat = feature.get("lat") || "Н/Д", lon = feature.get("lon") || "Н/Д", build_year = feature.get("build_year") || "Н/Д";
+  let is_emergency = feature.get("is_emergency") ? "Да" : "Нет", floors = feature.get("floors") || "Н/Д";
+
+  try {
+    // Извлекаем только значения с индексами с 15 по 18 для соответствующего здания
+    const arr = buildingsData.buildings.find(b => Array.isArray(b) && b[0] === buildingId);
+    if (arr) {
+      [socialScore, qualityScore, transportScore, totalScore] = arr.slice(15, 19);
+    }
+
+    // Используем данные для координат и других полей
+    lat = parseFloat(building.latitude).toFixed(6);
+    lon = parseFloat(building.longitude).toFixed(6);
+    floors = building.floors_number;
+    build_year = building.build_year;
+    is_emergency = building.is_emergency === 't' ? "Да" : "Нет";
+  }
+  catch (error) {
+    console.error('Ошибка при получении данных:', error);
+  }
+
+  const ratingText = `
 <p><strong>Адрес:</strong> ${feature.get("address")}</p>
 <p><strong>Социальный рейтинг:</strong> ${typeof socialScore === 'number' ? socialScore.toFixed(2) : socialScore}</p>
 <p><strong>Качество инфраструктуры:</strong> ${typeof qualityScore === 'number' ? qualityScore.toFixed(2) : qualityScore}</p>
@@ -1180,121 +1167,117 @@ async function showBuildingDetails(feature, event) {
 <p><strong>Этажность:</strong> ${floors}</p>
 <p><strong>Год постройки:</strong> ${build_year}</p>
 <p><strong>Аварийность:</strong> ${is_emergency}</p>`;
-  
-      showInfoPanel(event, {
-        title: "Жилище",
-        content: ratingText,
-        type: "building",
-        id: buildingId,
-        address: feature.get("address"),
-        lat: lat,
-        lon: lon,
-        socialScore: typeof socialScore === 'number' ? socialScore : null,
-        qualityScore: typeof qualityScore === 'number' ? qualityScore : null,
-        transportScore: typeof transportScore === 'number' ? transportScore : null,
-        totalScore: typeof totalScore === 'number' ? totalScore : null,
-        floors: floors,
-        build_year: build_year,
-        is_emergency: is_emergency
-      });
-    } catch (error) {
-      console.error("Ошибка при загрузке данных:", error);
-      showBasicInfo(feature, event, "Жилище");
-    }
-  }
-  
-  function showSchoolDetails(feature, event) {
-    let details = `<p><strong>Название:</strong> ${feature.get("name") || "Н/Д"}</p>`;
-    
-    if (feature.get("address")) details += `<p><strong>Адрес:</strong> ${feature.get("address")}</p>`;
-    
-    let contacts = [];
-    if (feature.get("contacts")) contacts.push(feature.get("contacts"));
-    if (feature.get("website")) contacts.push(feature.get("website"));
-    
-    if (contacts.length > 0) {
-      details += `<p><strong>Контакты:</strong> ${contacts.join(', ')}</p>`;
-    }
-    
-    details += `<p><strong>Координаты:</strong> ${feature.get("lat") || "Н/Д"}, ${feature.get("lon") || "Н/Д"}</p>`;
-  
-    showInfoPanel(event, {
-      title: "Школа",
-      content: details,
-      type: "school",
-      id: feature.get("id"),
-      address: feature.get("address")
-    });
-  }
-  
-  function showHospitalDetails(feature, event) {
-    let details = `<p><strong>Название:</strong> ${feature.get("name") || "Н/Д"}</p>`;
-    details += `<p><strong>Координаты:</strong> ${feature.get("lat") || "Н/Д"}, ${feature.get("lon") || "Н/Д"}</p>`;
-  
-    showInfoPanel(event, {
-      title: "Больница",
-      content: details,
-      type: "hospital",
-      id: feature.get("id")
-    });
-  }
-  
-  function showMetroDetails(feature, event) {
-    let details = `<p><strong>Название станции:</strong> ${feature.get("name") || "Н/Д"}</p>`;
-    details += `<p><strong>Координаты:</strong> ${feature.get("lat") || "Н/Д"}, ${feature.get("lon") || "Н/Д"}</p>`;
-  
-    showInfoPanel(event, {
-      title: "Станция метро",
-      content: details,
-      type: "metro",
-      id: feature.get("id")
-    });
-  }
-  
-  function showStopDetails(feature, event) {
-    let details = `<p><strong>Название:</strong> ${feature.get("name") || "Н/Д"}</p>`;
-    if (feature.get("transport_type")) details += `<p><strong>Тип транспорта:</strong> ${feature.get("transport_type")}</p>`;
-    if (feature.get("routes")) details += `<p><strong>Маршруты:</strong> ${feature.get("routes")}</p>`;
-    details += `<p><strong>Координаты:</strong> ${feature.get("lat") || "Н/Д"}, ${feature.get("lon") || "Н/Д"}</p>`;
-  
-    showInfoPanel(event, {
-      title: "Остановка транспорта",
-      content: details,
-      type: "stop",
-      id: feature.get("id")
-    });
-  }
-  
-  function showBasicInfo(feature, event, typeName) {
-    const details = `<p><strong>Адрес:</strong> ${feature.get("address") || "Н/Д"}</p>
-<p><strong>Координаты:</strong> ${feature.get("lat") || "Н/Д"}, ${feature.get("lon") || "Н/Д"}</p>`;
-  
-    showInfoPanel(event, {
-      title: typeName,
-      content: details,
-      type: feature.get("type"),
-      id: feature.get("id"),
-      address: feature.get("address")
-    });
+
+  showInfoPanel(event, {
+    title: "Жилище",
+    content: ratingText,
+    type: "building",
+    id: buildingId,
+    address: feature.get("address"),
+    lat: lat,
+    lon: lon,
+    socialScore: typeof socialScore === 'number' ? socialScore : null,
+    qualityScore: typeof qualityScore === 'number' ? qualityScore : null,
+    transportScore: typeof transportScore === 'number' ? transportScore : null,
+    totalScore: typeof totalScore === 'number' ? totalScore : null,
+    floors: floors,
+    build_year: build_year,
+    is_emergency: is_emergency
+  });
+}
+
+function showSchoolDetails(feature, event) {
+  let details = `<p><strong>Название:</strong> ${feature.get("name") || "Н/Д"}</p>`;
+
+  if (feature.get("address")) details += `<p><strong>Адрес:</strong> ${feature.get("address")}</p>`;
+
+  let contacts = [];
+  if (feature.get("contacts")) contacts.push(feature.get("contacts"));
+  if (feature.get("website")) contacts.push(feature.get("website"));
+
+  if (contacts.length > 0) {
+    details += `<p><strong>Контакты:</strong> ${contacts.join(', ')}</p>`;
   }
 
+  details += `<p><strong>Координаты:</strong> ${feature.get("lat") || "Н/Д"}, ${feature.get("lon") || "Н/Д"}</p>`;
+
+  showInfoPanel(event, {
+    title: "Школа",
+    content: details,
+    type: "school",
+    id: feature.get("id"),
+    address: feature.get("address")
+  });
+}
+
+function showHospitalDetails(feature, event) {
+  let details = `<p><strong>Название:</strong> ${feature.get("name") || "Н/Д"}</p>`;
+  details += `<p><strong>Координаты:</strong> ${feature.get("lat") || "Н/Д"}, ${feature.get("lon") || "Н/Д"}</p>`;
+
+  showInfoPanel(event, {
+    title: "Больница",
+    content: details,
+    type: "hospital",
+    id: feature.get("id")
+  });
+}
+
+function showMetroDetails(feature, event) {
+  let details = `<p><strong>Название станции:</strong> ${feature.get("name") || "Н/Д"}</p>`;
+  details += `<p><strong>Координаты:</strong> ${feature.get("lat") || "Н/Д"}, ${feature.get("lon") || "Н/Д"}</p>`;
+
+  showInfoPanel(event, {
+    title: "Станция метро",
+    content: details,
+    type: "metro",
+    id: feature.get("id")
+  });
+}
+
+function showStopDetails(feature, event) {
+  let details = `<p><strong>Название:</strong> ${feature.get("name") || "Н/Д"}</p>`;
+  if (feature.get("transport_type")) details += `<p><strong>Тип транспорта:</strong> ${feature.get("transport_type")}</p>`;
+  if (feature.get("routes")) details += `<p><strong>Маршруты:</strong> ${feature.get("routes")}</p>`;
+  details += `<p><strong>Координаты:</strong> ${feature.get("lat") || "Н/Д"}, ${feature.get("lon") || "Н/Д"}</p>`;
+
+  showInfoPanel(event, {
+    title: "Остановка транспорта",
+    content: details,
+    type: "stop",
+    id: feature.get("id")
+  });
+}
+
+function showBasicInfo(feature, event, typeName) {
+  const details = `<p><strong>Адрес:</strong> ${feature.get("address") || "Н/Д"}</p>
+<p><strong>Координаты:</strong> ${feature.get("lat") || "Н/Д"}, ${feature.get("lon") || "Н/Д"}</p>`;
+
+  showInfoPanel(event, {
+    title: typeName,
+    content: details,
+    type: feature.get("type"),
+    id: feature.get("id"),
+    address: feature.get("address")
+  });
+}
+
 // Обработчик DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM загружен, инициализация приложения...');
-  
+
   // Инициализация приложения
   initializeApplication();
-  
+
   // Обновление счетчика сравнения при загрузке
   updateComparisonCounter();
-  
+
   // Обработчик кнопки закрытия
   if (closeBtn) {
     closeBtn.addEventListener('click', closeInfoPanel);
   }
-  
+
   // Закрытие панели при нажатии ESC
-  document.addEventListener('keydown', function(event) {
+  document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') {
       closeInfoPanel();
     }

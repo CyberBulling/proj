@@ -343,7 +343,6 @@ class ComparisonManager {
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
                     scales: {
                         y: {
                             beginAtZero: true,
@@ -451,7 +450,6 @@ class ComparisonManager {
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
                     scales: {
                         r: {
                             angleLines: {

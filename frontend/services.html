@@ -10,197 +10,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <style>
-    /* Дополнительные стили для адаптивности services.html */
-    @media (max-width: 768px) {
-    /* Меняем порядок: сначала чат, потом информация о помощнике */
-    .chat-container {
-    flex-direction: column-reverse;
-    }
 
-    .chat-info {
-    order: 2;
-    margin-top: 2rem;
-    }
-
-    .chat-window {
-    order: 1;
-    }
-
-    /* Адаптация медиа-контента */
-    .media-gallery {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    margin: 2rem 0;
-    }
-
-    .media-gallery model-viewer {
-    width: 100%;
-    height: 300px;
-    }
-
-    .media-gallery video {
-    width: 100%;
-    max-width: 100%;
-    }
-
-    .media-gallery img {
-    width: 80%;
-    max-width: 250px;
-    }
-
-    /* Адаптация быстрых действий */
-    .quick-actions {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.8rem;
-    }
-
-    .quick-action {
-    padding: 1rem;
-    }
-
-    .quick-action i {
-    font-size: 1.5rem;
-    }
-
-    .quick-action p {
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
-    }
-
-    /* Адаптация возможностей помощника */
-    .capabilities {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    }
-
-    .capability {
-    padding: 1.5rem;
-    }
-
-    .capability h3 {
-    font-size: 1.2rem;
-    }
-
-    /* Адаптация чата */
-    .chat-header-content {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-    }
-
-    .chat-status {
-    justify-content: center;
-    }
-
-    .message {
-    max-width: 90%;
-    padding: 0.8rem 1rem;
-    font-size: 0.9rem;
-    }
-
-    .chat-input input {
-    padding: 0.8rem 1rem;
-    font-size: 0.9rem;
-    }
-
-    .chat-input button {
-    width: 44px;
-    height: 44px;
-    }
-
-    /* Адаптация hero секции */
-    .hero .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-    }
-
-    .hero .hero-buttons .btn {
-    width: 100%;
-    max-width: 280px;
-    }
-    }
-
-    @media (max-width: 480px) {
-    .quick-actions {
-    grid-template-columns: 1fr;
-    }
-
-    .chat-window {
-    height: 500px;
-    }
-
-    .chat-header h3 {
-    font-size: 1.2rem !important;
-    }
-
-    .media-gallery model-viewer {
-    height: 250px;
-    }
-
-    .capability {
-    padding: 1rem;
-    }
-    }
-
-    /* Стили для медиа-галереи */
-    .media-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    margin: 3rem 0;
-    padding: 2rem;
-    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-    border-radius: 24px;
-    }
-
-    .media-gallery model-viewer,
-    .media-gallery video,
-    .media-gallery img {
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    }
-
-    .media-gallery model-viewer:hover,
-    .media-gallery video:hover,
-    .media-gallery img:hover {
-    transform: translateY(-5px);
-    }
-
-    .chat-header-content {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    }
-
-    .chat-status {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    opacity: 0.9;
-    }
-
-    /* Анимации */
-    @keyframes slideInUp {
-    from {
-    opacity: 0;
-    transform: translateY(30px);
-    }
-    to {
-    opacity: 1;
-    transform: translateY(0);
-    }
-    }
-
-    .fade-in {
-    animation: slideInUp 0.6s ease forwards;
-    }
-    </style>
 </head>
 
 <body>
@@ -218,6 +28,7 @@
                 <a href="about.html">О нас</a>
                 <a href="services.html" class="active">Цифровой помощник</a>
                 <a href="analytics.html">Аналитика</a>
+                <a href="diffs.html">Сравнение объектов</a>
                 <a href="contact.html">Контакты</a>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -314,8 +125,7 @@
                     </div>
 
                     <div class="chat-input">
-                        <input type="text" id="messageInput" placeholder="Введите ваше сообщение..."
-                            onkeypress="handleKeyPress(event)">
+                        <input type="text" id="messageInput" placeholder="Введите ваше сообщение...">
                         <button onclick="sendMessage()" id="sendButton">
                             <i class="fas fa-paper-plane"></i>
                         </button>
@@ -323,14 +133,6 @@
                 </div>
             </div>
         </section>
-        <div>
-            <model-viewer src="images/images/ab1ffe96c49f677cc641dbc366fbe280.glb" alt="3D модель" auto-rotate
-                camera-controls style="width: 100%; height: 500px;">
-            </model-viewer>
-            <video src="images/Запись экрана 2026-03-20 213903.mp4" controls width="31%"></video>
-            <img src="images/Component 29 (2).svg" style="  max-width: 25%;height: auto;" alt="Робот МИМИ">
-            <img src="images/images/image 55 (1).svg" style="  max-width: 25%;height: auto;" alt="Робот МИМИ">
-        </div>
         <!-- Возможности помощника -->
         <section id="capabilities" class="fade-in">
             <h2 class="section-title">Возможности помощника</h2>
@@ -405,6 +207,31 @@
     </footer>
 
     <script src="backend/services.js"></script>
+    <script>
+        // Гарантируем, что обработчик клавиш в поле ввода чата навешан корректно
+        document.addEventListener('DOMContentLoaded', function () {
+            function attachEnterHandler() {
+                var messageInput = document.getElementById('messageInput');
+                if (!messageInput) {
+                    // Попробовать повторно через 300мс, если DOM input ещё не вставлен
+                    setTimeout(attachEnterHandler, 300);
+                    return;
+                }
+                // Проверяем, что обработчик ещё не навешан
+                if (!messageInput._hasEnterHandler) {
+                    messageInput.addEventListener('keydown', function (event) {
+                        // Только если НЕ Shift+Enter
+                        if (event.key === 'Enter' && !event.shiftKey) {
+                            event.preventDefault(); // Запретить перевод строки
+                            if (typeof sendMessage === 'function') sendMessage();
+                        }
+                    });
+                    messageInput._hasEnterHandler = true;
+                }
+            }
+            attachEnterHandler();
+        });
+    </script>
 </body>
 
 </html>

@@ -1,1352 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Комплексная аналитика Москвы - ИСУР</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-/* ===== ОБНОВЛЕННЫЕ СТИЛИ С УЛУЧШЕННЫМ ДИЗАЙНОМ ===== */
-
-:root {
-    --primary: #1a56db;
-    --primary-dark: #1e429f;
-    --primary-light: #3f83f8;
-    --accent: #c80000;
-    --accent-light: #d33434;
-    --dark: #111827;
-    --light: #f9fafb;
-    --gray-light: #f3f4f6;
-    --gray: #6b7280;
-    --glass-bg: rgba(26, 86, 219, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --border-radius: 16px;
-    --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08), 0 10px 20px -10px rgba(0, 0, 0, 0.04);
-    --elevated-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', Arial, sans-serif;
-}
-
-body {
-    background-color: var(--light);
-    color: var(--dark);
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-.comparison-counter {
-    background: #FF6B35;
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    margin-left: 5px;
-}
-
-.container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-/* ===== УЛУЧШЕННАЯ ШАПКА ===== */
-header {
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(26, 86, 219, 0.95) 100%);
-    backdrop-filter: blur(20px);
-    color: white;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid var(--glass-border);
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.logo-text {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: white;
-    letter-spacing: -0.5px;
-}
-
-nav {
-    display: flex;
-    gap: 2rem;
-}
-
-nav a {
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.5rem 0;
-    position: relative;
-    transition: var(--transition);
-    white-space: nowrap;
-}
-
-nav a:hover {
-    color: white;
-    transform: translateY(-1px);
-}
-
-nav a.active {
-    color: white;
-    font-weight: 600;
-}
-
-nav a.active:after,
-nav a:hover:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), white);
-    border-radius: 3px 3px 0 0;
-    animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-.mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    transition: var(--transition);
-}
-
-.mobile-menu-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* ===== ХЛЕБНЫЕ КРОШКИ ===== */
-.breadcrumbs {
-    padding: 1.5rem 0 1rem;
-    font-size: 0.9375rem;
-    color: var(--gray);
-    animation: fadeInUp 0.8s ease 0.4s both;
-}
-
-.breadcrumbs a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
-    position: relative;
-}
-
-.breadcrumbs a:hover {
-    color: var(--primary-dark);
-}
-
-.breadcrumbs a:hover:after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: var(--primary);
-}
-
-.breadcrumbs span {
-    color: var(--gray);
-    margin: 0 0.5rem;
-}
-
-/* ===== УЛУЧШЕННАЯ ГЕРОЙ-СЕКЦИЯ ===== */
-.hero {
-    background: linear-gradient(135deg, 
-        #1a56db 0%, 
-        #3f83f8 30%, 
-        #c80000 70%, 
-        #d33434 100%);
-    color: white;
-    padding: 6rem 0;
-    margin-bottom: 2rem;
-    border-radius: 0 0 2rem 2rem;
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    right: -50%;
-    bottom: -50%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(255,255,255,0.08) 0%, transparent 50%);
-    animation: pulse 15s ease-in-out infinite alternate;
-    z-index: -1;
-}
-
-@keyframes pulse {
-    0% { 
-        transform: translate(0, 0) rotate(0deg) scale(1); 
-        opacity: 0.8;
-    }
-    50% { 
-        transform: translate(-30px, -30px) rotate(90deg) scale(1.1); 
-        opacity: 1;
-    }
-    100% { 
-        transform: translate(30px, 30px) rotate(180deg) scale(1); 
-        opacity: 0.8;
-    }
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.hero h1 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, white, #e0f2fe);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: fadeInUp 0.8s ease;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.hero p {
-    font-size: 1.25rem;
-    margin: 0 auto 3rem;
-    font-weight: 400;
-    opacity: 0.9;
-    line-height: 1.7;
-    max-width: 700px;
-    animation: fadeInUp 0.8s ease 0.2s both;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    animation: fadeInUp 0.8s ease 0.4s both;
-}
-
-/* ===== УЛУЧШЕННЫЕ КНОПКИ ===== */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(26, 86, 219, 0.3);
-    border: none;
-    cursor: pointer;
-    min-width: 160px;
-}
-
-.btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.6s;
-}
-
-.btn:hover::after {
-    left: 100%;
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(26, 86, 219, 0.4);
-}
-
-.btn:active {
-    transform: translateY(-1px);
-}
-
-.btn-outline {
-    background: transparent;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-}
-
-.btn-outline:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
-}
-
-.btn-accent {
-    background: linear-gradient(135deg, var(--accent), var(--accent-light));
-    color: white;
-}
-
-.btn-accent:hover {
-    background: linear-gradient(135deg, var(--accent-light), var(--accent));
-}
-
-/* ===== УЛУЧШЕННЫЕ СЕКЦИИ ===== */
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin: 4rem 0 2rem;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    position: relative;
-    display: inline-block;
-    animation: fadeInUp 0.8s ease;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    border-radius: 2px;
-}
-
-.section-subtitle {
-    font-size: 1.125rem;
-    color: var(--gray);
-    margin-bottom: 2rem;
-    max-width: 800px;
-    line-height: 1.7;
-    animation: fadeInUp 0.8s ease 0.1s both;
-}
-
-/* ===== УЛУЧШЕННАЯ КАРТА МОСКВЫ ===== */
-.map-section {
-    margin: 3rem 0;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--elevated-shadow);
-    background: white;
-    padding: 2.5rem;
-    animation: fadeInUp 0.8s ease 0.2s both;
-    position: relative;
-    border: 2px solid rgba(226, 232, 240, 0.6);
-}
-
-.map-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-}
-
-.map-container {
-    height: 600px;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    position: relative;
-    border: 2px solid rgba(226, 232, 240, 0.6);
-    box-shadow: var(--card-shadow);
-    background: #f8fafc;
-}
-
-.map-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    background: linear-gradient(135deg, var(--gray-light), #e5e7eb);
-    padding: 1.5rem 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--card-shadow);
-}
-
-.filter-group {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.filter-label {
-    font-weight: 600;
-    color: var(--primary-dark);
-    font-size: 1rem;
-}
-
-.filter-options {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.filter-option {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    background: white;
-    border-radius: 8px;
-    transition: var(--transition);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.filter-option:hover {
-    background: var(--gray-light);
-    transform: translateY(-2px);
-}
-
-.filter-checkbox {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    accent-color: var(--primary);
-}
-
-.filter-option span {
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--dark);
-}
-
-.map-buttons {
-    display: flex;
-    gap: 0.75rem;
-}
-
-.map-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: white;
-    border: 2px solid rgba(226, 232, 240, 0.8);
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    color: var(--primary);
-    box-shadow: var(--card-shadow);
-}
-
-.map-btn:hover {
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    color: white;
-    border-color: transparent;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(26, 86, 219, 0.2);
-}
-
-.map-btn i {
-    font-size: 1rem;
-}
-
-.loader {
-    display: none;
-    text-align: center;
-    padding: 2rem;
-    font-size: 1.125rem;
-    color: var(--primary);
-    font-weight: 500;
-}
-
-.loader i {
-    margin-right: 1rem;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* ===== ИСПРАВЛЕННАЯ ЛЕГЕНДА КАРТЫ ===== */
-.map-legend-container {
-    position: relative;
-    height: 0;
-    width: 100%;
-}
-
-.map-legend {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    z-index: 1000;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--elevated-shadow);
-    max-width: 220px;
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    pointer-events: all;
-}
-
-.legend-title {
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--primary);
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.75rem;
-    font-size: 0.875rem;
-    transition: var(--transition);
-}
-
-.legend-item:hover {
-    transform: translateX(5px);
-}
-
-.legend-color {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin-right: 1rem;
-    flex-shrink: 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-}
-
-/* ===== УЛУЧШЕННАЯ ПАНЕЛЬ СТАТИСТИКИ ===== */
-.stats-panel {
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    padding: 2.5rem;
-    border-radius: var(--border-radius);
-    margin-top: 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    color: white;
-    box-shadow: var(--elevated-shadow);
-    position: relative;
-    overflow: hidden;
-}
-
-.stats-panel::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%);
-}
-
-.stat-item {
-    text-align: center;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: var(--border-radius);
-    backdrop-filter: blur(10px);
-    transition: var(--transition);
-    position: relative;
-    z-index: 2;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.stat-item:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.stat-value {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.stat-label {
-    font-size: 0.9375rem;
-    opacity: 0.9;
-    font-weight: 500;
-}
-
-/* ===== УЛУЧШЕННАЯ РАЙОННАЯ АНАЛИТИКА ===== */
-.district-analytics {
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 3rem;
-    margin: 4rem 0;
-    box-shadow: var(--elevated-shadow);
-    border: 2px solid rgba(226, 232, 240, 0.6);
-    animation: fadeInUp 0.8s ease 0.4s both;
-    position: relative;
-}
-
-.district-analytics::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-}
-
-.district-selector {
-    margin-bottom: 2rem;
-}
-
-.district-selector select {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    border: 2px solid rgba(226, 232, 240, 0.8);
-    border-radius: 12px;
-    font-size: 1.125rem;
-    background: white;
-    color: var(--dark);
-    transition: var(--transition);
-    box-shadow: var(--card-shadow);
-    font-weight: 500;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231a56db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1.5rem;
-}
-
-.district-selector select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
-}
-
-.district-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
-}
-
-.district-stat {
-    text-align: center;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(26, 86, 219, 0.1), rgba(26, 86, 219, 0.05));
-    border-radius: var(--border-radius);
-    transition: var(--transition);
-    border: 2px solid transparent;
-}
-
-.district-stat:hover {
-    transform: translateY(-5px);
-    border-color: rgba(26, 86, 219, 0.2);
-    box-shadow: var(--card-shadow);
-}
-
-.district-stat-value {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-}
-
-.district-stat-label {
-    font-size: 0.9375rem;
-    color: var(--gray);
-    font-weight: 500;
-}
-
-/* ===== УЛУЧШЕННЫЕ АНАЛИТИЧЕСКИЕ КАРТОЧКИ ===== */
-.analytics-section {
-    margin: 4rem 0;
-}
-
-.analytics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.analytics-card {
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 2.5rem;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition);
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
-    animation: fadeInUp 0.8s ease;
-}
-
-.analytics-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-}
-
-.analytics-card:hover::before {
-    transform: scaleX(1);
-}
-
-.analytics-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--elevated-shadow);
-    border-color: rgba(26, 86, 219, 0.1);
-}
-
-.analytics-card h3 {
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.analytics-card h3 i {
-    font-size: 1.75rem;
-    background: linear-gradient(135deg, rgba(26, 86, 219, 0.1), rgba(26, 86, 219, 0.2));
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    transition: var(--transition);
-}
-
-.analytics-card:hover h3 i {
-    transform: scale(1.1) rotate(5deg);
-}
-
-.analytics-card p {
-    color: var(--gray);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-    font-size: 1.0625rem;
-}
-
-/* ===== УЛУЧШЕННЫЕ СТИЛИ ДЛЯ ГРАФИКОВ ===== */
-.chart-container {
-    height: 280px;
-    margin-top: 1.5rem;
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    background: white;
-    padding: 1rem;
-    border: 2px solid rgba(226, 232, 240, 0.6);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.chart-container canvas {
-    border-radius: 8px;
-}
-
-/* Стили для радарного графика района */
-#district-chart {
-    background: linear-gradient(135deg, rgba(26, 86, 219, 0.02), rgba(26, 86, 219, 0.05));
-    border: 2px solid rgba(26, 86, 219, 0.1);
-}
-
-/* Стили для баровых графиков */
-#transport-chart, #education-chart, #healthcare-chart, #housing-chart {
-    background: white;
-}
-
-/* ===== СТИЛИ ДЛЯ ИНФОПАНЕЛИ ===== */
-.info-panel {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    z-index: 1000;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--elevated-shadow);
-    max-width: 300px;
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    display: none;
-}
-
-.info-panel.show {
-    display: block;
-    animation: fadeInUp 0.3s ease;
-}
-
-.info-panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.info-panel-header h3 {
-    color: var(--primary);
-    margin: 0;
-    font-size: 1.25rem;
-}
-
-.btn-close {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--gray);
-    transition: var(--transition);
-}
-
-.btn-close:hover {
-    color: var(--accent);
-    transform: scale(1.1);
-}
-
-.info-content {
-    margin-bottom: 1.5rem;
-}
-
-.info-content p {
-    margin-bottom: 0.5rem;
-    font-size: 0.9375rem;
-}
-
-.info-panel-buttons {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.btn-compare {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, #6b46c1, #805ad5);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    transition: var(--transition);
-    border: none;
-    cursor: pointer;
-}
-
-.btn-compare:hover {
-    background: linear-gradient(135deg, #805ad5, #6b46c1);
-    transform: translateY(-2px);
-}
-
-.btn-compare.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.btn-compare.disabled:hover {
-    transform: none;
-    background: linear-gradient(135deg, #6b46c1, #805ad5);
-}
-
-/* ===== УЛУЧШЕННЫЙ ФУТЕР ===== */
-footer {
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-    color: white;
-    padding: 3rem 0 1rem;
-    margin-top: 4rem;
-    position: relative;
-    overflow: hidden;
-}
-
-footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 3rem;
-    margin-bottom: 3rem;
-}
-
-.footer-section {
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 2;
-}
-
-.footer-section h3 {
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    font-size: 1.25rem;
-    position: relative;
-    padding-bottom: 0.75rem;
-    color: white;
-}
-
-.footer-section h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background: var(--accent);
-    border-radius: 3px;
-}
-
-.footer-section p {
-    margin-bottom: 0.75rem;
-    font-size: 0.9375rem;
-    opacity: 0.8;
-    transition: var(--transition);
-}
-
-.footer-section p:hover {
-    opacity: 1;
-    transform: translateX(5px);
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.social-links a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    color: white;
-    text-decoration: none;
-    transition: var(--transition);
-    font-size: 1.25rem;
-}
-
-.social-links a:hover {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    transform: translateY(-5px) rotate(10deg);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.footer-bottom {
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    font-size: 0.875rem;
-    opacity: 0.7;
-    position: relative;
-    z-index: 2;
-}
-
-/* ===== УЛУЧШЕННЫЕ УВЕДОМЛЕНИЯ ===== */
-.notification {
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    padding: 1rem 1.5rem;
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--elevated-shadow);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    z-index: 2000;
-    transform: translateX(150%);
-    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    border-left: 4px solid var(--primary);
-    min-width: 300px;
-    max-width: 400px;
-    backdrop-filter: blur(10px);
-}
-
-.notification.show {
-    transform: translateX(0);
-}
-
-.notification.success {
-    border-left-color: var(--accent);
-}
-
-.notification.error {
-    border-left-color: #ef4444;
-}
-
-.notification.info {
-    border-left-color: var(--primary);
-}
-
-.notification i {
-    font-size: 1.25rem;
-    color: inherit;
-}
-
-.notification.success i {
-    color: var(--accent);
-}
-
-.notification.error i {
-    color: #ef4444;
-}
-
-.notification.info i {
-    color: var(--primary);
-}
-
-/* ===== АДАПТИВНОСТЬ ===== */
-@media (max-width: 1024px) {
-    .container {
-        max-width: 100%;
-        padding: 0 1.5rem;
-    }
-    
-    .hero h1 {
-        font-size: 3rem;
-    }
-    
-    .section-title {
-        font-size: 2rem;
-    }
-    
-    .map-container {
-        height: 500px;
-    }
-    
-    .analytics-grid {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    }
-    
-    .map-legend {
-        max-width: 200px;
-        padding: 1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    
-    nav {
-        display: none;
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        background: var(--primary-dark);
-        flex-direction: column;
-        padding: 1rem;
-        box-shadow: var(--elevated-shadow);
-        gap: 0;
-        z-index: 999;
-        border-radius: 0 0 var(--border-radius) var(--border-radius);
-    }
-    
-    nav.active {
-        display: flex;
-        animation: slideDown 0.3s ease;
-    }
-    
-    nav a {
-        padding: 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    nav a:last-child {
-        border-bottom: none;
-    }
-    
-    .mobile-menu-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .hero {
-        padding: 4rem 0;
-    }
-    
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero p {
-        font-size: 1.125rem;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .btn {
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    .map-container {
-        height: 400px;
-    }
-    
-    .map-controls {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .map-buttons {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-    
-    .analytics-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .footer-section h3::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .social-links {
-        justify-content: center;
-    }
-    
-    .map-legend {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        max-width: 180px;
-        padding: 1rem;
-    }
-    
-    .district-analytics,
-    .map-section {
-        padding: 2rem;
-    }
-    
-    .stats-panel {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .info-panel {
-        max-width: 280px;
-        right: 1rem;
-        top: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 0 1rem;
-    }
-    
-    .logo img {
-        height: 40px;
-    }
-    
-    .logo-text {
-        font-size: 1rem;
-    }
-    
-    .hero {
-        padding: 3rem 0;
-        border-radius: 0 0 1rem 1rem;
-    }
-    
-    .hero h1 {
-        font-size: 2rem;
-    }
-    
-    .hero p {
-        font-size: 1rem;
-    }
-    
-    .btn {
-        padding: 0.875rem 1.5rem;
-        font-size: 0.9375rem;
-    }
-    
-    .map-container {
-        height: 350px;
-    }
-    
-    .stats-panel {
-        grid-template-columns: 1fr;
-    }
-    
-    .section-title {
-        font-size: 1.75rem;
-    }
-    
-    .district-info {
-        grid-template-columns: 1fr;
-    }
-    
-    .filter-options {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .map-legend {
-        max-width: 160px;
-        padding: 0.75rem;
-    }
-    
-    .legend-title {
-        font-size: 0.875rem;
-    }
-    
-    .legend-item {
-        font-size: 0.75rem;
-    }
-    
-    .legend-color {
-        width: 16px;
-        height: 16px;
-        margin-right: 0.75rem;
-    }
-}
-
-/* ===== УТИЛИТАРНЫЕ КЛАССЫ ===== */
-.text-center { text-align: center; }
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mt-4 { margin-top: 2rem; }
-.mt-5 { margin-top: 3rem; }
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
-.mb-5 { margin-bottom: 3rem; }
-.d-flex { display: flex; }
-.d-grid { display: grid; }
-.justify-center { justify-content: center; }
-.align-center { align-items: center; }
-.w-100 { width: 100%; }
-.h-100 { height: 100%; }
-
-.fade-in {
-    opacity: 0;
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-/* ===== ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ===== */
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <!-- Улучшенная шапка -->
     <header>
@@ -1357,14 +24,15 @@ footer::before {
                 </div>
                 <div class="logo-text"></div>
             </div>
-            <nav id="main-nav">
+            <nav id="mainNav">
                 <a href="index.html">Главная</a>
                 <a href="about.html">О нас</a>
+                <a href="services.html">Цифровой помощник</a>
                 <a href="analytics.html" class="active">Аналитика</a>
+                <a href="diffs.html">Сравнение объектов</a>
                 <a href="contact.html">Контакты</a>
-                <a href="diffs.html">Сравнение объектов<span class="comparison-counter" id="comparison-counter" style="display: none;">0</span></a>
             </nav>
-            <button class="mobile-menu-btn" id="menu-toggle">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -1373,8 +41,8 @@ footer::before {
     <!-- Хлебные крошки -->
     <div class="container">
         <div class="breadcrumbs">
-            <a href="index.html">Главная</a> <span>></span> 
-            <a href="analytics.html">Аналитика</a> <span>></span> 
+            <a href="index.html">Главная</a> <span>></span>
+            <a href="analytics.html">Аналитика</a> <span>></span>
             <span>Комплексная аналитика Москвы</span>
         </div>
     </div>
@@ -1383,7 +51,8 @@ footer::before {
     <section class="hero">
         <div class="container hero-content">
             <h1>Комплексная аналитика Москвы</h1>
-            <p>Глубокий анализ инфраструктуры города: транспорт, образование, здравоохранение, жилье и экология по всем районам Москвы. Интерактивная аналитика в реальном времени.</p>
+            <p>Глубокий анализ инфраструктуры города: транспорт, образование, здравоохранение, жилье и экология по всем
+                районам Москвы. Интерактивная аналитика в реальном времени.</p>
             <div class="hero-buttons">
                 <a href="#map" class="btn">
                     <i class="fas fa-map-marked-alt"></i> Интерактивная карта
@@ -1391,8 +60,8 @@ footer::before {
                 <a href="#analytics" class="btn btn-outline">
                     <i class="fas fa-chart-bar"></i> Анализ данных
                 </a>
-                <a href="#districts" class="btn btn-accent">
-                    <i class="fas fa-city"></i> Районная аналитика
+                <a href="#infrastructure" class="btn btn-accent">
+                    <i class="fas fa-city"></i> Социальная инфраструктура
                 </a>
             </div>
         </div>
@@ -1402,8 +71,9 @@ footer::before {
         <!-- Карта объектов -->
         <section class="map-section" id="map">
             <h2 class="section-title"><i class="fas fa-map"></i> Интерактивная карта Москвы</h2>
-            <p class="section-subtitle text-center">Объекты инфраструктуры с детальной аналитикой по всем районам города. Исследуйте данные в реальном времени.</p>
-            
+            <p class="section-subtitle text-center">Объекты инфраструктуры с детальной аналитикой по всем районам
+                города. Исследуйте данные в реальном времени.</p>
+
             <div class="map-controls">
                 <div class="filter-group">
                     <span class="filter-label">Типы объектов:</span>
@@ -1430,17 +100,23 @@ footer::before {
                         </label>
                     </div>
                 </div>
-                
+
                 <div class="map-buttons">
-                    <button id="reset-view-btn" class="map-btn"><i class="fas fa-globe-europe"></i> Сбросить вид</button>
-                    <button id="load-data-btn" class="map-btn"><i class="fas fa-download"></i> Загрузить данные</button>
+                    <button id="reset-view-btn" class="map-btn">
+                        <i class="fas fa-globe-europe"></i> Сбросить вид
+                    </button>
+                    <button id="load-data-btn" class="map-btn">
+                        <i class="fas fa-download"></i> Загрузить данные
+                    </button>
                 </div>
             </div>
 
             <div class="loader" id="loader">
                 <i class="fas fa-spinner"></i> Загрузка данных...
             </div>
-            
+
+            <div id="map-container" class="map-container"></div>
+
             <div class="map-legend-container">
                 <div class="map-legend">
                     <div class="legend-title"><i class="fas fa-info-circle"></i> Легенда объектов</div>
@@ -1466,10 +142,7 @@ footer::before {
                     </div>
                 </div>
             </div>
-            
-            <div id="map-container" class="map-container"></div>
-            
-            <!-- Панель информации -->
+
             <div class="info-panel" id="info-panel">
                 <div class="info-panel-header">
                     <h3 id="info-title">Информация</h3>
@@ -1477,11 +150,97 @@ footer::before {
                 </div>
                 <div class="info-content" id="info-content"></div>
                 <div class="info-panel-buttons">
-                    <a href="#" id="detailed-analysis-btn" class="btn" style="display: none;"><i class="fas fa-chart-line"></i> Детальный анализ</a>
-                    <button id="add-to-compare-btn" class="btn-compare" style="display: none;"><i class="fas fa-balance-scale"></i> Добавить к сравнению</button>
+                    <a href="#" id="detailed-analysis-btn" class="btn" style="display: none;"><i
+                            class="fas fa-chart-line"></i> Детальный анализ</a>
+                    <button id="add-to-compare-btn" class="btn-compare" style="display: none;"><i
+                            class="fas fa-balance-scale"></i> Добавить к сравнению</button>
                 </div>
             </div>
-            
+
+            <section class="district-analytics" id="districts">
+                <h2 class="section-title"><i class="fas fa-city"></i> Аналитика по районам Москвы</h2>
+                <p class="section-subtitle text-center">Детальная информация по каждому району города с показателями
+                    инфраструктуры и сравнительным анализом</p>
+
+                <div class="district-selector">
+                    <select id="district-select">
+                        <option value="">Выберите район Москвы</option>
+                    </select>
+                </div>
+
+                <div class="district-info" id="district-info">
+                    <div class="district-stat">
+                        <div class="district-stat-value" id="district-population">-</div>
+                        <div class="district-stat-label">Население</div>
+                    </div>
+                    <div class="district-stat">
+                        <div class="district-stat-value" id="district-area">-</div>
+                        <div class="district-stat-label">Площадь (км²)</div>
+                    </div>
+                    <div class="district-stat">
+                        <div class="district-stat-value" id="district-density">-</div>
+                        <div class="district-stat-label">Плотность (чел/км²)</div>
+                    </div>
+                    <div class="district-stat">
+                        <div class="district-stat-value" id="district-infrastructure">-</div>
+                        <div class="district-stat-label">Инфраструктурный индекс</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="district-chart"></canvas>
+                </div>
+            </section>
+
+            <!-- Аналитические графики -->
+            <section class="analytics-section" id="analytics">
+                <h2 class="section-title"><i class="fas fa-chart-line"></i> Анализ инфраструктуры Москвы</h2>
+                <p class="section-subtitle text-center">Сравнительные показатели по всем районам города на основе
+                    актуальных
+                    данных</p>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card fade-in">
+                        <h3><i class="fas fa-subway"></i> Транспортная доступность</h3>
+                        <p>Сравнение районов по количеству станций метро, остановок общественного транспорта и
+                            транспортной
+                            загруженности. Индекс доступности рассчитывается на основе плотности транспортной сети.</p>
+                        <div class="chart-container">
+                            <canvas id="transport-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="analytics-card fade-in">
+                        <h3><i class="fas fa-graduation-cap"></i> Образовательная инфраструктура</h3>
+                        <p>Количество школ, детских садов и вузов на 1000 жителей по районам Москвы. Анализ
+                            обеспеченности
+                            образовательными учреждениями разных уровней.</p>
+                        <div class="chart-container">
+                            <canvas id="education-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="analytics-card fade-in">
+                        <h3><i class="fas fa-hospital"></i> Здравоохранение</h3>
+                        <p>Обеспеченность медицинскими учреждениями и доступность поликлиник по районам города.
+                            Учитывается
+                            количество мест в стационарах и поликлиническая сеть.</p>
+                        <div class="chart-container">
+                            <canvas id="healthcare-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="analytics-card fade-in">
+                        <h3><i class="fas fa-home"></i> Жилищный фонд</h3>
+                        <p>Средняя стоимость жилья, количество новостроек и состояние жилого фонда по районам. Анализ
+                            доступности жилья и качества жилищных условий.</p>
+                        <div class="chart-container">
+                            <canvas id="housing-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <div class="stats-panel" id="stats">
                 <div class="stat-item">
                     <div class="stat-value" id="building-count">0</div>
@@ -1506,80 +265,113 @@ footer::before {
             </div>
         </section>
 
-        <!-- Районная аналитика -->
-        <section class="district-analytics" id="districts">
-            <h2 class="section-title"><i class="fas fa-city"></i> Аналитика по районам Москвы</h2>
-            <p class="section-subtitle text-center">Детальная информация по каждому району города с показателями инфраструктуры и сравнительным анализом</p>
-            
-            <div class="district-selector">
-                <select id="district-select">
-                    <option value="">Выберите район Москвы</option>
-                </select>
-            </div>
-            
-            <div class="district-info" id="district-info">
-                <div class="district-stat">
-                    <div class="district-stat-value" id="district-population">-</div>
-                    <div class="district-stat-label">Население</div>
-                </div>
-                <div class="district-stat">
-                    <div class="district-stat-value" id="district-area">-</div>
-                    <div class="district-stat-label">Площадь (км²)</div>
-                </div>
-                <div class="district-stat">
-                    <div class="district-stat-value" id="district-density">-</div>
-                    <div class="district-stat-label">Плотность (чел/км²)</div>
-                </div>
-                <div class="district-stat">
-                    <div class="district-stat-value" id="district-infrastructure">-</div>
-                    <div class="district-stat-label">Инфраструктурный индекс</div>
-                </div>
-            </div>
-            
-            <div class="chart-container">
-                <canvas id="district-chart"></canvas>
-            </div>
-        </section>
 
-        <!-- Аналитические графики -->
-        <section class="analytics-section" id="analytics">
-            <h2 class="section-title"><i class="fas fa-chart-line"></i> Анализ инфраструктуры Москвы</h2>
-            <p class="section-subtitle text-center">Сравнительные показатели по всем районам города на основе актуальных данных</p>
-            
-            <div class="analytics-grid">
-                <div class="analytics-card fade-in">
-                    <h3><i class="fas fa-subway"></i> Транспортная доступность</h3>
-                    <p>Сравнение районов по количеству станций метро, остановок общественного транспорта и транспортной загруженности. Индекс доступности рассчитывается на основе плотности транспортной сети.</p>
-                    <div class="chart-container">
-                        <canvas id="transport-chart"></canvas>
+        <!-- Графики социальной инфраструктуры -->
+        <!--
+        <section id="infrastructure" class="social-infrastructure-charts">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <div style="width: 4px; height: 32px; background: #3b82f6; border-radius: 2px;"></div>
+                        Структура социальной инфраст
+                        <span class="badge">30 баллов</span>
+                    </h2>
+                </div>
+
+                <div class="chart-body">
+                    <canvas id="pieChart"></canvas>
+                </div>
+
+                <div class="chart-footer">
+                    <button onclick="downloadChart('pie')" class="download-btn">
+                        <i class="fas fa-download"></i> Скачать данные (CSV)
+                    </button>
+                    <p class="info-text">*Для получения подробной информации наведите курсор на интересующий сектор</p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <div style="width: 4px; height: 32px; background: #10b981; border-radius: 2px;"></div>
+                        Затухание по расстоянию
+                    </h2>
+                    <div class="chart-tabs" id="chartTabs">
+                        <button onclick="switchChartTab('education')" class="chart-tab active">Образование</button>
+                        <button onclick="switchChartTab('healthcare')" class="chart-tab">Медицина</button>
+                        <button onclick="switchChartTab('parks')" class="chart-tab">Парки</button>
                     </div>
                 </div>
-                
-                <div class="analytics-card fade-in">
-                    <h3><i class="fas fa-graduation-cap"></i> Образовательная инфраструктура</h3>
-                    <p>Количество школ, детских садов и вузов на 1000 жителей по районам Москвы. Анализ обеспеченности образовательными учреждениями разных уровней.</p>
-                    <div class="chart-container">
-                        <canvas id="education-chart"></canvas>
-                    </div>
+
+                <div class="chart-body">
+                    <canvas id="lineChart"></canvas>
                 </div>
-                
-                <div class="analytics-card fade-in">
-                    <h3><i class="fas fa-hospital"></i> Здравоохранение</h3>
-                    <p>Обеспеченность медицинскими учреждениями и доступность поликлиник по районам города. Учитывается количество мест в стационарах и поликлиническая сеть.</p>
-                    <div class="chart-container">
-                        <canvas id="healthcare-chart"></canvas>
-                    </div>
+
+                <div class="chart-footer">
+                    <button onclick="downloadChart('line')" class="download-btn">
+                        <i class="fas fa-download"></i> Скачать данные (CSV)
+                    </button>
+                    <p class="info-text">*Для получения подробной информации наведите курсор на интересующий сектор</p>
                 </div>
-                
-                <div class="analytics-card fade-in">
-                    <h3><i class="fas fa-home"></i> Жилищный фонд</h3>
-                    <p>Средняя стоимость жилья, количество новостроек и состояние жилого фонда по районам. Анализ доступности жилья и качества жилищных условий.</p>
-                    <div class="chart-container">
-                        <canvas id="housing-chart"></canvas>
-                    </div>
+            </div>
+
+            <div class="chart-container" style="grid-column: 1 / -1;">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <div style="width: 4px; height: 32px; background: #8b5cf6; border-radius: 2px;"></div>
+                        Соотношение факторов
+                        <span class="badge">баллы за наличие категорий</span>
+                    </h2>
+                </div>
+
+                <div class="chart-body">
+                    <canvas id="barChart"></canvas>
+                </div>
+
+                <div class="chart-footer">
+                    <button onclick="downloadChart('bar')" class="download-btn">
+                        <i class="fas fa-download"></i> Скачать данные (CSV)
+                    </button>
+                    <p class="info-text">*Максимальный балл (5) начисляется при наличии всех трёх факторов в районе</p>
                 </div>
             </div>
         </section>
+        -->
+
+        <!-- Статистика -->
+        <div class="stats-cards">
+            <div class="stat-card" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+                <div class="stat-card-value">1256</div>
+                <div class="stat-card-label">объектов образования</div>
+                <div class="stat-card-progress">
+                    <div class="stat-card-progress-bar" style="width: 75%;"></div>
+                </div>
+            </div>
+
+            <div class="stat-card" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                <div class="stat-card-value">843</div>
+                <div class="stat-card-label">медицинских учреждений</div>
+                <div class="stat-card-progress">
+                    <div class="stat-card-progress-bar" style="width: 67%;"></div>
+                </div>
+            </div>
+
+            <div class="stat-card" style="background: linear-gradient(135deg, #10b981, #059669);">
+                <div class="stat-card-value">327</div>
+                <div class="stat-card-label">парков и скверов</div>
+                <div class="stat-card-progress">
+                    <div class="stat-card-progress-bar" style="width: 50%;"></div>
+                </div>
+            </div>
+
+            <div class="stat-card" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                <div class="stat-card-value">89%</div>
+                <div class="stat-card-label">районов с полным набором</div>
+                <div class="stat-card-progress">
+                    <div class="stat-card-progress-bar" style="width: 89%;"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Улучшенный футер -->
@@ -1619,26 +411,26 @@ footer::before {
         <i class="fas fa-info-circle"></i>
         <div id="notification-message">Уведомление</div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/ol@8.2.0/dist/ol.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="/backend/analytics2.js"></script>
     <script>
         // Инициализация при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Мобильное меню
-            document.getElementById('menu-toggle').addEventListener('click', () => {
+            document.getElementById('mobileMenuBtn').addEventListener('click', () => {
                 document.getElementById('main-nav').classList.toggle('active');
-                const icon = document.getElementById('menu-toggle').querySelector('i');
-                icon.className = document.getElementById('main-nav').classList.contains('active') 
-                    ? 'fas fa-times' 
+                const icon = document.getElementById('mobileMenuBtn').querySelector('i');
+                icon.className = document.getElementById('main-nav').classList.contains('active')
+                    ? 'fas fa-times'
                     : 'fas fa-bars';
             });
-            
+
             // Закрытие инфопанели
             document.getElementById('close-btn').addEventListener('click', () => {
                 document.getElementById('info-panel').classList.remove('show');
             });
-            
+
             // Загрузка данных
             document.getElementById('load-data-btn').addEventListener('click', () => {
                 const link = document.createElement('a');
@@ -1648,7 +440,7 @@ footer::before {
                 link.click();
                 document.body.removeChild(link);
             });
-            
+
             // Сброс вида
             document.getElementById('reset-view-btn').addEventListener('click', () => {
                 document.getElementById('filter-building').checked = true;
@@ -1665,7 +457,7 @@ footer::before {
                     map.getView().setZoom(12);
                 }
             });
-            
+
             // Обновление счетчика сравнения
             function updateComparisonCounter() {
                 const buildings = JSON.parse(localStorage.getItem('isur_buildings_comparison') || '[]');
@@ -1675,20 +467,20 @@ footer::before {
                     counter.style.display = buildings.length > 0 ? 'inline-flex' : 'none';
                 }
             }
-            
+
             // Инициализация счетчика
             updateComparisonCounter();
-            
+
             // Обновление при изменении localStorage
             window.addEventListener('storage', updateComparisonCounter);
-            
+
             // ДАННЫЕ ДЛЯ ГРАФИКОВ (как во втором файле)
             const moscowDistricts = [
-                { 
-                    name: "Центральный", 
-                    population: 753696, 
-                    area: 66.18, 
-                    density: 11388, 
+                {
+                    name: "Центральный",
+                    population: 753696,
+                    area: 66.18,
+                    density: 11388,
                     infrastructure: 92,
                     transport: 95,
                     education: 88,
@@ -1699,11 +491,11 @@ footer::before {
                     hospitals: 28,
                     residentialObjects: 850
                 },
-                { 
-                    name: "Северный", 
-                    population: 1147599, 
-                    area: 113.73, 
-                    density: 10090, 
+                {
+                    name: "Северный",
+                    population: 1147599,
+                    area: 113.73,
+                    density: 10090,
                     infrastructure: 78,
                     transport: 82,
                     education: 75,
@@ -1714,11 +506,11 @@ footer::before {
                     hospitals: 22,
                     residentialObjects: 720
                 },
-                { 
-                    name: "Северо-Восточный", 
-                    population: 1416748, 
-                    area: 101.88, 
-                    density: 13906, 
+                {
+                    name: "Северо-Восточный",
+                    population: 1416748,
+                    area: 101.88,
+                    density: 13906,
                     infrastructure: 75,
                     transport: 78,
                     education: 72,
@@ -1729,11 +521,11 @@ footer::before {
                     hospitals: 25,
                     residentialObjects: 980
                 },
-                { 
-                    name: "Восточный", 
-                    population: 1516345, 
-                    area: 154.84, 
-                    density: 9793, 
+                {
+                    name: "Восточный",
+                    population: 1516345,
+                    area: 154.84,
+                    density: 9793,
                     infrastructure: 72,
                     transport: 75,
                     education: 70,
@@ -1744,11 +536,11 @@ footer::before {
                     hospitals: 23,
                     residentialObjects: 920
                 },
-                { 
-                    name: "Юго-Восточный", 
-                    population: 1414777, 
-                    area: 117.56, 
-                    density: 12035, 
+                {
+                    name: "Юго-Восточный",
+                    population: 1414777,
+                    area: 117.56,
+                    density: 12035,
                     infrastructure: 71,
                     transport: 73,
                     education: 68,
@@ -1759,11 +551,11 @@ footer::before {
                     hospitals: 21,
                     residentialObjects: 890
                 },
-                { 
-                    name: "Южный", 
-                    population: 1792876, 
-                    area: 131.77, 
-                    density: 13606, 
+                {
+                    name: "Южный",
+                    population: 1792876,
+                    area: 131.77,
+                    density: 13606,
                     infrastructure: 69,
                     transport: 70,
                     education: 65,
@@ -1774,11 +566,11 @@ footer::before {
                     hospitals: 26,
                     residentialObjects: 1100
                 },
-                { 
-                    name: "Юго-Западный", 
-                    population: 1438957, 
-                    area: 111.36, 
-                    density: 12922, 
+                {
+                    name: "Юго-Западный",
+                    population: 1438957,
+                    area: 111.36,
+                    density: 12922,
                     infrastructure: 85,
                     transport: 88,
                     education: 82,
@@ -1789,11 +581,11 @@ footer::before {
                     hospitals: 29,
                     residentialObjects: 950
                 },
-                { 
-                    name: "Западный", 
-                    population: 1309828, 
-                    area: 153.03, 
-                    density: 8559, 
+                {
+                    name: "Западный",
+                    population: 1309828,
+                    area: 153.03,
+                    density: 8559,
                     infrastructure: 88,
                     transport: 90,
                     education: 85,
@@ -1804,11 +596,11 @@ footer::before {
                     hospitals: 27,
                     residentialObjects: 880
                 },
-                { 
-                    name: "Северо-Западный", 
-                    population: 980940, 
-                    area: 93.28, 
-                    density: 10516, 
+                {
+                    name: "Северо-Западный",
+                    population: 980940,
+                    area: 93.28,
+                    density: 10516,
                     infrastructure: 81,
                     transport: 83,
                     education: 78,
@@ -1819,11 +611,11 @@ footer::before {
                     hospitals: 20,
                     residentialObjects: 680
                 },
-                { 
-                    name: "Зеленоградский", 
-                    population: 250173, 
-                    area: 37.22, 
-                    density: 6721, 
+                {
+                    name: "Зеленоградский",
+                    population: 250173,
+                    area: 37.22,
+                    density: 6721,
                     infrastructure: 79,
                     transport: 76,
                     education: 80,
@@ -1835,7 +627,7 @@ footer::before {
                     residentialObjects: 320
                 }
             ];
-            
+
             // Заполнение выпадающего списка районов
             const districtSelect = document.getElementById('district-select');
             moscowDistricts.forEach(district => {
@@ -1844,21 +636,21 @@ footer::before {
                 option.textContent = district.name;
                 districtSelect.appendChild(option);
             });
-            
+
             // Обработчик изменения выбранного района
-            districtSelect.addEventListener('change', function() {
+            districtSelect.addEventListener('change', function () {
                 const selectedDistrict = moscowDistricts.find(d => d.name === this.value);
                 if (selectedDistrict) {
                     document.getElementById('district-population').textContent = selectedDistrict.population.toLocaleString();
                     document.getElementById('district-area').textContent = selectedDistrict.area;
                     document.getElementById('district-density').textContent = selectedDistrict.density.toLocaleString();
                     document.getElementById('district-infrastructure').textContent = selectedDistrict.infrastructure + '/100';
-                    
+
                     // Обновление графика для выбранного района
                     updateDistrictChart(selectedDistrict);
                 }
             });
-            
+
             // Функция для обновления графиков (как во втором файле)
             function updateCharts() {
                 // График транспортной доступности
@@ -1907,7 +699,7 @@ footer::before {
                         }
                     }
                 });
-                
+
                 // График образовательной инфраструктуры
                 const educationCtx = document.getElementById('education-chart').getContext('2d');
                 new Chart(educationCtx, {
@@ -1954,7 +746,7 @@ footer::before {
                         }
                     }
                 });
-                
+
                 // График здравоохранения
                 const healthcareCtx = document.getElementById('healthcare-chart').getContext('2d');
                 new Chart(healthcareCtx, {
@@ -2001,7 +793,7 @@ footer::before {
                         }
                     }
                 });
-                
+
                 // График жилищного фонда
                 const housingCtx = document.getElementById('housing-chart').getContext('2d');
                 new Chart(housingCtx, {
@@ -2019,7 +811,6 @@ footer::before {
                     },
                     options: {
                         responsive: true,
-                        maintainAspectRatio: false,
                         plugins: {
                             legend: {
                                 display: false
@@ -2049,16 +840,16 @@ footer::before {
                     }
                 });
             }
-            
+
             // Функция для обновления графика района
             function updateDistrictChart(district) {
                 const ctx = document.getElementById('district-chart').getContext('2d');
-                
+
                 // Если уже есть график, уничтожить его
                 if (window.districtChart) {
                     window.districtChart.destroy();
                 }
-                
+
                 window.districtChart = new Chart(ctx, {
                     type: 'radar',
                     data: {
@@ -2122,18 +913,18 @@ footer::before {
                     }
                 });
             }
-            
+
             // Инициализация графиков при загрузке
             setTimeout(() => {
                 updateCharts();
-                
+
                 // Выбор первого района по умолчанию
                 if (moscowDistricts.length > 0) {
                     districtSelect.value = moscowDistricts[0].name;
                     districtSelect.dispatchEvent(new Event('change'));
                 }
             }, 1000);
-            
+
             // Анимация для элементов
             const elements = document.querySelectorAll('.fade-in');
             elements.forEach((element, index) => {
@@ -2141,6 +932,7 @@ footer::before {
             });
         });
     </script>
-    
+    </script>
 </body>
+
 </html>
